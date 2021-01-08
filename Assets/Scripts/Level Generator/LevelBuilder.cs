@@ -1,18 +1,40 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class LevelBuilder : MonoBehaviour
+namespace StaffRun
 {
-    // Start is called before the first frame update
-    void Start()
+    public class LevelBuilder : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private SOLevel[] _levels;
+        [SerializeField] private int _levelNumber;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        private void Start()
+        {
+            BuildLevel(_levelNumber);
+        }
+
+        public void BuildLevel(int levelNumber)
+        {
+            List<LevelPart> levelParts = new List<LevelPart>();
+
+            if (_levelNumber < 0 || _levelNumber >= _levels.Length)
+            {
+                _levelNumber = 0;
+            }
+            
+            for (int i = 0; i < _levels[levelNumber].LevelParts.Length; i++)
+            {
+                levelParts.Add(Instantiate(_levels[levelNumber].LevelParts[i]));
+            }
+
+            for (int i = 0; i < levelParts.Count; i ++)
+            {
+                if (i > 0)
+                {
+                    levelParts[i].transform.position = levelParts[i - 1].GetPointNextPart();
+                }
+            }
+        }
     }
 }
