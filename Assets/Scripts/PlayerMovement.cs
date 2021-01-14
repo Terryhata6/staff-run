@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 		transform.position = _screenWall;*/
 
 	}
-	public void ChangePalyerState()
+	public void ChangePalyerState(CharacterState state)
 	{
 		if (_isRunning)
 		{
