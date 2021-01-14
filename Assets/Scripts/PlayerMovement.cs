@@ -68,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
 			}
 			_playerTransform.position = _movingVector;
 		}
+		if(_playerTransform.position.y <= -5)
+		{
+			Debug.Log("Game Over");
+		}
 		//ограничение экрана
 		/*_screenWall.x = Mathf.Clamp(transform.position.x, _minScreenPosition.x, _maxScreenPosition.x);
 		_screenWall.y = Mathf.Clamp(transform.position.y, _minScreenPosition.y, _maxScreenPosition.y);
@@ -76,12 +80,12 @@ public class PlayerMovement : MonoBehaviour
 	}
 	public void ChangePalyerState(CharacterState state)
 	{
-		if (_isRunning)
+		if (state == CharacterState.Fly)
 		{
 			_isRunning = false;
 			_playerRigidbody.isKinematic = true;
 		}
-		else
+		else if (state == CharacterState.Run)
 		{
 			_isRunning = true;
 			_playerRigidbody.isKinematic = false;

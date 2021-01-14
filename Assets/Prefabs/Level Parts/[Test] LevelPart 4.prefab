@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 5162409149200784372}
   - component: {fileID: 7991424562798306478}
   m_Layer: 0
-  m_Name: '[Test] LevelPart 1'
+  m_Name: '[Test] LevelPart 4'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2221664083930831450
 Transform:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: 2255565601425063753, guid: 16a949a126dd00b4887e24668917fb19,
         type: 3}
       propertyPath: _targetState
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4719238904382708373, guid: 16a949a126dd00b4887e24668917fb19,
         type: 3}
