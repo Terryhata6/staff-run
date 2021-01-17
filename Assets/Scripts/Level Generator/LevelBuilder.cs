@@ -9,7 +9,7 @@ namespace StaffRun
         [SerializeField] private int _levelNumber;
 
 
-        private void Start()
+        private void Awake()
         {
             BuildLevel(_levelNumber);
         }

@@ -6,9 +6,10 @@ public class TriggerSwitchState : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("тригернул : " + other.name);
         if (other.GetComponent<PlayerMovement>())
         {
-            other.GetComponent<PlayerMovement>().ChangePalyerState(_targetState);
+            other.GetComponent<PlayerMovement>().ChangePlayerState(_targetState);
         }
     }
 }
