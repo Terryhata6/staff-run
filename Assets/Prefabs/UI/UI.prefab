@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7474365858529591547}
+  - component: {fileID: 7125697397819737058}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -36,6 +37,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7125697397819737058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474365858529591546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464dc3a933e5f2d4cb0319df08b6d93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainPanel: {fileID: 7474365858933363645}
 --- !u!1 &7474365858613109348
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,6 +128,7 @@ GameObject:
   - component: {fileID: 7474365858911046562}
   - component: {fileID: 7474365858911046565}
   - component: {fileID: 7474365858911046564}
+  - component: {fileID: 1221298600548519520}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -205,6 +220,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1221298600548519520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474365858911046567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb180c15626a024ca3250f6e89c12e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7474365858933363645
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7474365859029464021}
+  - component: {fileID: 7881520652732935501}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -315,6 +343,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7881520652732935501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474365859029464020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f9727fe91d3a8499b2281a579f550e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainPanel: {fileID: 7474365859620274976}
 --- !u!1 &7474365859155794504
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7474365859336457129}
+  - component: {fileID: 164642966729716091}
   m_Layer: 5
   m_Name: InGameUI
   m_TagString: Untagged
@@ -425,6 +467,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &164642966729716091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474365859336457128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecf263e115474046bf73b7e90c51f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainPanel: {fileID: 7474365859494560380}
 --- !u!1 &7474365859357384152
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7474365859357384153}
+  - component: {fileID: 7790534934187705575}
   m_Layer: 5
   m_Name: EndGameMenu
   m_TagString: Untagged
@@ -461,6 +517,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7790534934187705575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474365859357384152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1e9454c352d164f8809d9e89f9d3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainPanel: {fileID: 7474365859155794504}
 --- !u!1 &7474365859494560380
 GameObject:
   m_ObjectHideFlags: 0
