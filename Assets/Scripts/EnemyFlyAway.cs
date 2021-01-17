@@ -8,12 +8,9 @@ public class EnemyFlyAway : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            ForceVector.x = (transform.position.x - other.transform.position.x) * 1000f;
+            ForceVector.x = (transform.position.x - other.transform.position.x) * 2000f;
             ForceVector.z = 1000f;
-
-            Debug.Log("AddForce = " + ForceVector);
             EnemyModelRigidbody.AddForce(ForceVector);
-            Debug.Log("Hit = other.transform.position : " + other.transform.position + " + transform.position :" + transform.position);
         }
     }
 }
