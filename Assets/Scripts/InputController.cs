@@ -44,6 +44,10 @@ public class InputController : MonoBehaviour
 				DragingStarted = true;
 				TouchPosition = Input.mousePosition / 100;
 			}
+			else
+			{
+				DragingStarted = false;
+			}
 		}
 	}
 }
