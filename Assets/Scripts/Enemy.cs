@@ -3,6 +3,7 @@
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _visibleDistance;
+    [SerializeField] private Transform _headTransform;
     private Transform _player;
     private float _distance;
 
@@ -17,7 +18,9 @@ public class Enemy : MonoBehaviour
 
         if (_distance <= _visibleDistance)
         {
-            transform.LookAt(_player);
+            //transform.LookAt(_player);
+            _headTransform.LookAt(_player);
+            
         }
     }
 

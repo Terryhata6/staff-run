@@ -19,6 +19,7 @@ public class StickModel : MonoBehaviour
 	private bool _isRotatingFaster;
 	private void Awake()
 	{
+		_isRotating = false;
 		_inputController = FindObjectOfType<InputController>();
 		_stickTransform = GetComponent<Transform>();
 		_scaleVector = new Vector3();
