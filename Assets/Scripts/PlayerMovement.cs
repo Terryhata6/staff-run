@@ -8,8 +8,10 @@ public class PlayerMovement : MonoBehaviour
 	public float MovingDownSpeed;
 
 	[SerializeField] private InputController _inputController;
+	[SerializeField] private StickModel _stickModel;
 	[SerializeField] private Transform _playerTransform;
 	[SerializeField] private Rigidbody _playerRigidbody;
+	[SerializeField] private CharacterState _currentState;
 	[SerializeField] private Vector3 _delay;
 	[SerializeField] private Vector3 _startPosition;
 	[SerializeField] private Vector3 _movingVector;
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		_playerTransform = GetComponent<Transform>();
 		_inputController = FindObjectOfType<InputController>();
+		_stickModel = FindObjectOfType<StickModel>();
 		_delay = new Vector3(0, YDelay);
 		_minScreenPosition = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)) * 3f;
 		_maxScreenPosition = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)) * 3f;
@@ -78,24 +81,31 @@ public class PlayerMovement : MonoBehaviour
 		transform.position = _screenWall;*/
 
 	}
-	public void ChangePalyerState(CharacterState state)
+	public void ChangePlayerState(CharacterState state)
 	{
-		if (state == CharacterState.Fly)
+		Debug.Log("ChangePalyerState");
+
+		if (state == CharacterState.Fly && _currentState!= state)
 		{
+			_currentState = state;
 			_isRunning = false;
 			_playerRigidbody.isKinematic = true;
+			_stickModel.ChangePositionOfStick();
 		}
-		else if (state == CharacterState.Run)
+		else if (state == CharacterState.Run && _currentState != state)
 		{
+			_currentState = state;
 			_isRunning = true;
 			_playerRigidbody.isKinematic = false;
+			_stickModel.ChangePositionOfStick();
 		}
 	}
 	private void MoveForward()
 	{
-		_movingVector = _playerTransform.position;
+		/*_movingVector = _playerTransform.position;
 		_movingVector.z += MovingSpeed;
-		_playerTransform.position = _movingVector;
+		_playerTransform.position = _movingVector;*/
+		_playerTransform.Translate(Vector3.forward * 10f);
 
 	}
 }
