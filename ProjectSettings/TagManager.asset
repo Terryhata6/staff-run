@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnEnemy
   - Enemy
+  - SpawnCollectables
   layers:
   - Default
   - TransparentFX
