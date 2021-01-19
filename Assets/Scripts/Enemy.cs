@@ -20,12 +20,11 @@ public class Enemy : MonoBehaviour
         {
             //transform.LookAt(_player);
             _headTransform.LookAt(_player);
-            
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

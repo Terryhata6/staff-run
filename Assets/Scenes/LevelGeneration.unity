@@ -9961,7 +9961,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 5122891859061602176, guid: e11b3b7ab646f4f49828ea8c1e69e79d, type: 3}
-  _spawnPos: []
+  _enemySpawnPos: []
+  _collectables: {fileID: 5023389944030926221, guid: 4b42bd4e69ec4fd4385dc7299733852b,
+    type: 3}
+  _collectablesSpawnPos: []
 --- !u!1001 &1846724954
 PrefabInstance:
   m_ObjectHideFlags: 0
