@@ -18,14 +18,14 @@ public class Enemy : MonoBehaviour
 
         if (_distance <= _visibleDistance)
         {
-            //transform.LookAt(_player);
-            _headTransform.LookAt(_player);
+            transform.LookAt(_player);
+            //_headTransform.LookAt(_player);
             
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 10.0f);
     }
 }

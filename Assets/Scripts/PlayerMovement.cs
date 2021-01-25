@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private bool _isRunning;
 	[SerializeField] private float _sliderSensetivity = 3.0f;
 	[SerializeField] private Animator _animator;
+	[SerializeField] private StickModel _staff;
 
 	private void Start()
 	{
@@ -97,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
                 _startPosition = _playerTransform.position;
                 _delayCounted = true;
             }
-            _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;
+            _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;			
             _playerTransform.position = _movingVector;
         }
         else
@@ -135,4 +136,14 @@ public class PlayerMovement : MonoBehaviour
 		_playerTransform.Translate(Vector3.forward * 10f);
 
 	}
+
+    private void OnTriggerEnter(Collider _entryCollider)
+    {
+		if (_entryCollider.gameObject.CompareTag("Enemy"))
+		{
+			_animator.SetTrigger("Attack 1");
+			
+		}
+    }	
+	
 }

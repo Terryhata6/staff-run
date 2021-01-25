@@ -6,9 +6,9 @@ public class EnemyFlyAway : MonoBehaviour
     private Vector3 ForceVector;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Weapon"))
         {
-            ForceVector.x = (transform.position.x - other.transform.position.x) * 2000f;
+            ForceVector.x = (transform.position.x - other.transform.position.x) * 20000f;
             ForceVector.z = 1000f;
             EnemyModelRigidbody.AddForce(ForceVector);
         }

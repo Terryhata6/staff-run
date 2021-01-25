@@ -14,6 +14,7 @@ public class StickModel : MonoBehaviour
 	private Vector3 _rotatingVector;
 	private Vector3 _startPositionOfStick;
 	private Vector3 _startRotationOfStick;
+	private Collider _collider;
 	private float _rotatingSpeed;
 	private bool _isRotating;
 	private bool _isRotatingFaster;
@@ -24,9 +25,12 @@ public class StickModel : MonoBehaviour
 		_stickTransform = GetComponent<Transform>();
 		_scaleVector = new Vector3();
 		_startPositionOfStick = _stickTransform.localPosition;
-		_startRotationOfStick = _stickTransform.rotation.eulerAngles;
+		_startRotationOfStick = _stickTransform.localEulerAngles;
+		
 		_rotatingVector = new Vector3(RotatingSpeed, 0, 0); 
 		_rotatingSpeed = RotatingSpeed;
+		_collider = GetComponent<Collider>();
+		_collider.enabled = false;
 	}
 	public void IncreaseLenghtOfStick()
 	{
@@ -80,5 +84,15 @@ public class StickModel : MonoBehaviour
 			}
 			RotateStick();
 		}
+	}
+
+	public void StaffAttackStart()
+	{
+		_collider.enabled = true;
+	}
+
+	public void StaffAttackEnd()
+	{
+		_collider.enabled = false;
 	}
 }
