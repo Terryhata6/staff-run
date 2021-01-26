@@ -8,13 +8,13 @@ public class AnimationEvents : MonoBehaviour
 
     public void StaffAttackStarted()
     {
-        Debug.Log("Атака прошла из аниматора");
+        
         _staff.StaffAttackStart();
     }
 
     public void StaffAttackEnded()
     {
-        Debug.Log("Атака закончилась из аниматора");
+
         _staff.StaffAttackEnd();
     }
 

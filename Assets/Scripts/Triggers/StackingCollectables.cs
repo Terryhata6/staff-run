@@ -12,7 +12,8 @@ public class StackingCollectables : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _stickModel.IncreaseLenghtOfStick();
+            Destroy(gameObject);
         }
-        Destroy(this.gameObject);
+        
     }
 }

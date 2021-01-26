@@ -8,7 +8,7 @@ public class EnemyFlyAway : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            ForceVector.x = (transform.position.x - other.transform.position.x) * 20000f;
+            ForceVector.x = (transform.position.x - other.transform.position.x) * 200f;
             ForceVector.z = 1000f;
             EnemyModelRigidbody.AddForce(ForceVector);
         }
