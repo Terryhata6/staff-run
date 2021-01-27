@@ -6,8 +6,7 @@ TagManager:
   tags:
   - SpawnEnemy
   - Enemy
-  - Weapon
-  - EnemyInAttackRange
+  - SpawnCollectables
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - Enemy
+  - 
   - 
   - 
   - 
