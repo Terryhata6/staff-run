@@ -57,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
                     break;
                 }
             case CharacterState.Fly:
-                {
-					
+                {					
 					_animator.SetBool("RunState", false);
 					_animator.SetBool("FlyState", true);
 					OnFlyMovement();
@@ -68,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
 				{
 					_animator.SetBool("RunState", false);
 					_animator.SetBool("FlyState", false);
-					_animator.SetBool("FinalState", true);
-					OnFinalMovement();
+					_animator.SetBool("FinalState", true);					
 					break;
 				}
             default: _animator.SetBool("RunState", true); break;
@@ -85,10 +83,7 @@ public class PlayerMovement : MonoBehaviour
 		transform.position = _screenWall;*/		
 	}
 
-    private void OnFinalMovement()
-    {
-        //Механика финального уровня - бросок посоха
-    }
+    
 
     private void OnFlyMovement()
     {
@@ -148,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_currentState = state;
 			_isRunning = false;
-
 		}
 
 	}

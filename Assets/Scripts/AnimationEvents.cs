@@ -14,11 +14,16 @@ public class AnimationEvents : MonoBehaviour
 
     public void StaffAttackEnded()
     {
-
         _staff.StaffAttackEnd();
     }
 
-    
+    private void OnFinalMovement()
+    {
+        //Механика финального уровня - бросок посоха
+        StaffAttackStarted();
+        _staff.FinalMove();
+    }
+
 
 
 }
