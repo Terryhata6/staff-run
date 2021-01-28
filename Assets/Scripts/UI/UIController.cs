@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour
         _endGameMenu = GetComponentInChildren<EndGameMenu>();
 
         SwitchUI(UIState.MainMenu);
-        PauseGame();
+        _mainController.PauseGame();
     }
 
     public void SwitchUI(UIState state)

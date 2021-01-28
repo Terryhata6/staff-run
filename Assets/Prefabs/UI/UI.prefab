@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainPanel: {fileID: 7474365858933363645}
-  _resumeButton: {fileID: 0}
+  _resumeButton: {fileID: 3530399484757452257}
 --- !u!1 &7474365858613109348
 GameObject:
   m_ObjectHideFlags: 0
