@@ -7,8 +7,8 @@ public class MainController : MonoBehaviour
     [SerializeField] private int _levelNumber;
 
     private LevelBuilder _levelBuilder;
+    private CoinManager _coinManager;
     private SaveDataRepo _saveData;
-    private int _currentCoins;
     private int _coins;
 
 
@@ -34,23 +34,38 @@ public class MainController : MonoBehaviour
 
     public void PauseGame()
     {
-        
+        Time.timeScale = 0;
     }
+
     public void ResumeGame()
     {
-
+        Time.timeScale = 1;
     }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void NextLevel()
     {
         _levelNumber++;
-        _coins += 123456; // TODO
+        _coins += _coinManager.GetCurrentCoin();
+        _coinManager.ResetCoin();
+
         SaveStats();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        RestartScene();
+    }
+
+    public int GetLevelNumber()
+    {
+        return _levelNumber;
     }
 
     private void SaveStats()
     {
         _saveData.SaveData(_levelNumber, SaveKeyManager.KeyLevelNumber);
-        
+        _saveData.SaveData(_coins, SaveKeyManager.KeyCoins);
     }
 }
