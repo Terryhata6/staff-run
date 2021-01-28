@@ -1,39 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace StaffRun
+
+public class LevelBuilder : MonoBehaviour
 {
-    public class LevelBuilder : MonoBehaviour
+    [SerializeField] private SOLevel[] _levels;
+
+    public void BuildLevel(int levelNumber)
     {
-        [SerializeField] private SOLevel[] _levels;
-        [SerializeField] private int _levelNumber;
+        List<LevelPart> levelParts = new List<LevelPart>();
 
-
-        private void Awake()
+        if (levelNumber < 0 || levelNumber >= _levels.Length)
         {
-            BuildLevel(_levelNumber);
+            levelNumber = 0;
         }
 
-        public void BuildLevel(int levelNumber)
+        for (int i = 0; i < _levels[levelNumber].LevelParts.Length; i++)
         {
-            List<LevelPart> levelParts = new List<LevelPart>();
+            levelParts.Add(Instantiate(_levels[levelNumber].LevelParts[i]));
+        }
 
-            if (_levelNumber < 0 || _levelNumber >= _levels.Length)
+        for (int i = 0; i < levelParts.Count; i++)
+        {
+            if (i > 0)
             {
-                _levelNumber = 0;
-            }
-            
-            for (int i = 0; i < _levels[levelNumber].LevelParts.Length; i++)
-            {
-                levelParts.Add(Instantiate(_levels[levelNumber].LevelParts[i]));
-            }
-
-            for (int i = 0; i < levelParts.Count; i ++)
-            {
-                if (i > 0)
-                {
-                    levelParts[i].transform.position = levelParts[i - 1].GetPointNextPart();
-                }
+                levelParts[i].transform.position = levelParts[i - 1].GetPointNextPart();
             }
         }
     }
