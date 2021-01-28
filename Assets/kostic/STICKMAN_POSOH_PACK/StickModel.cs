@@ -2,6 +2,7 @@
 
 public class StickModel : MonoBehaviour
 {
+	[SerializeField] CameraController _camera;
 	public Vector3 RotatingPositionOfStick;
 	public Vector3 RotatingRotationOfStick;
 	public float AmountOfGettingBigger;
@@ -19,9 +20,13 @@ public class StickModel : MonoBehaviour
 	private bool _isRotatingFaster;
 	private bool _isFinalStage = false;
 	private Rigidbody _rigidbody;
+	private bool _wasThrowed;
+	
+	
 
 	private void Awake()
 	{
+		_camera = FindObjectOfType<CameraController>();
 		_isRotating = false;
 		_inputController = FindObjectOfType<InputController>();
 		_stickTransform = GetComponent<Transform>();
@@ -33,6 +38,7 @@ public class StickModel : MonoBehaviour
 		_rotatingSpeed = RotatingSpeed;
 		_collider = GetComponent<Collider>();
 		_collider.enabled = false;
+		_wasThrowed = false;
 	}
 	public void IncreaseLenghtOfStick()
 	{
@@ -62,7 +68,7 @@ public class StickModel : MonoBehaviour
 	{
 		_stickTransform.Rotate(_rotatingVector, Space.Self);
 	}
-	private void FixedUpdate()
+	private void LateUpdate()
 	{
 		if (Input.GetKeyDown(KeyCode.F))
 		{
@@ -100,12 +106,24 @@ public class StickModel : MonoBehaviour
 
 	public void FinalMove()
 	{
-		FinalStateStaffChange();
-		
-		
+		if (!_wasThrowed)
+		{
+			transform.parent = null;
+			_wasThrowed = true;
+			Debug.Log("Бросок посоха");
+			FinalStateStaffChange();
+			_rigidbody.isKinematic = false;
+
+			transform.rotation = Quaternion.Euler(0,0 ,90);
+			_rigidbody.AddForce(new Vector3(0, 0.2f, 1)*33.5f, ForceMode.Impulse);
+			_rigidbody.AddTorque(new Vector3(0, -1, 0)*500.0f, ForceMode.Impulse);
+			_camera.SetPursuedObject(gameObject);
+			_collider.isTrigger = false;
+			
 
 
 
+		}
 		///Активировать RigidBody
 		///Дать импульс
 
