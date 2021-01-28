@@ -7,6 +7,10 @@ TagManager:
   - SpawnEnemy
   - Enemy
   - SpawnCollectables
+  - Weapon
+  - EnemyInAttackRange
+  - Collectables
+  - SpawnCoins
   layers:
   - Default
   - TransparentFX

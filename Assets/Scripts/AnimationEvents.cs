@@ -23,7 +23,4 @@ public class AnimationEvents : MonoBehaviour
         StaffAttackStarted();
         _staff.FinalMove();
     }
-
-
-
 }

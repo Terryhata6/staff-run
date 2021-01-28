@@ -51,27 +51,27 @@ public class PlayerMovement : MonoBehaviour
 			case CharacterState.Run:
                 {
 					
-					_animator.SetBool("RunState", true);
-					_animator.SetBool("FlyState", false);
+					_animator.SetBool(NameManager.RunState, true);
+					_animator.SetBool(NameManager.FlyState, false);
 					OnRunMovement();
                     break;
                 }
             case CharacterState.Fly:
                 {					
-					_animator.SetBool("RunState", false);
-					_animator.SetBool("FlyState", true);
+					_animator.SetBool(NameManager.RunState, false);
+					_animator.SetBool(NameManager.FlyState, true);
 					OnFlyMovement();
                     break;
                 }
 			case CharacterState.Final:
 				{
 					
-					_animator.SetBool("RunState", false);
-					_animator.SetBool("FlyState", false);
-					_animator.SetBool("FinalState", true);
+					_animator.SetBool(NameManager.RunState, false);
+					_animator.SetBool(NameManager.FlyState, false);
+					_animator.SetBool(NameManager.FinalState, true);
 					break;
 				}
-            default: _animator.SetBool("RunState", true); break;
+            default: _animator.SetBool(NameManager.RunState, true); break;
 		}	
 		
 		if(_playerTransform.position.y <= -5)

@@ -29,20 +29,15 @@ public class CameraController : MonoBehaviour
     private Vector3 _inputRotation;
     private float _deltaEpsilonForRotate = 0.001f;
     private bool _deltaChecked = false;
-    
 
-
-
-    
     private void Start()
     {
         _objectChanging = false;
-        
+
         //Quaternion x = new Quaternion();
         //x.SetLookRotation();
         _inputRotation = new Vector3(-2, -1, -1);
     }
-
 
     private void Update()
     {
@@ -54,7 +49,6 @@ public class CameraController : MonoBehaviour
             }
         }
     }
-
 
     private void LateUpdate()
     {
@@ -72,7 +66,7 @@ public class CameraController : MonoBehaviour
             _newDirection = Vector3.RotateTowards(transform.forward, _inputRotation, _rotationSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(_newDirection);
             //CheckDelta();
-            Invoke("InvokedMethod", 2);
+            Invoke(NameManager.InvokedMethod, 2);
         }
     }
 
@@ -99,7 +93,8 @@ public class CameraController : MonoBehaviour
         } 
     }
     */
-    public void SetPursuedObject(GameObject obj) 
+
+    public void SetPursuedObject(GameObject obj)
     {
         _pursuedObject = obj;
         _objectChanging = true;
@@ -110,13 +105,11 @@ public class CameraController : MonoBehaviour
         _cameraRotate = true;
         _inputRotation = inputRotation;
     }
-    
+
     public void SetCameraDistance(float value) { }
 
     public GameObject GetPursuedObject()
     {
         return _pursuedObject;
     }
-
-    
 }

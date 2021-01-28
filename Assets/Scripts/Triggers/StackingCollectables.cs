@@ -11,11 +11,10 @@ public class StackingCollectables : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(NameManager.Player))
         {
             _stickModel.IncreaseLenghtOfStick();
             Destroy(gameObject);
         }
-        
     }
 }
