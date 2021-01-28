@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private float _attackCoolDown = 1.0f;
 	private bool _attackInCoolDown = false;
+	private Vector3 temp;
 
 	private void Start()
 	{
@@ -119,8 +120,26 @@ public class PlayerMovement : MonoBehaviour
         {
             _delayCounted = false;
         }
+
+		if (_inputController.TouchPosition.x - _delay.x > 0)
+		{
+			_animator.SetBool("RightRun", true);
+			_animator.SetBool("LeftRun", false);
+		}
+		else if (_inputController.TouchPosition.x - _delay.x < 0)
+		{
+			_animator.SetBool("RightRun", false);
+			_animator.SetBool("LeftRun", true);
+		}
+		else if(!_inputController.DragingStarted)
+		{
+			_animator.SetBool("RightRun", false);
+			_animator.SetBool("LeftRun", false);
+		}
         _playerTransform.position = _movingVector;
     }
+
+	
 
     public void ChangePlayerState(CharacterState state)
 	{

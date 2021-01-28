@@ -11,6 +11,8 @@ TagManager:
   - EnemyInAttackRange
   - Collectables
   - SpawnCoins
+  - Staff
+  - FinalTrigger
   layers:
   - Default
   - TransparentFX

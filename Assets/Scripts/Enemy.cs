@@ -12,15 +12,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Collider _bigCapsule;
     [SerializeField] private Collider _smallCapsule;
     [SerializeField] private Collider _cube;
+    [SerializeField] private GameObject[] _enemyesSkinVariations;
+    [SerializeField] private GameObject[] _enemyesMaskVariations;
+    [SerializeField] private GameObject[] _enemyesWeaponVariations;
+    [SerializeField] private float _addForcePower;
+    [SerializeField] private Animator _animator;
 
     private Transform _player;
     private float _distance;
-    private Animator _animator;
     public Rigidbody EnemyModelRigidbody;
     private Vector3 ForceVector;
     private PlayerMovement _playerState;
     private CapsuleCollider _collider;
     private bool _finalState = false;
+
+    private int _skinIndex;
+    private int _maskIndex;
+    private int _weaponIndex;
+    private EnemyWeapon _weaponObject;
+    private float _destroyTime = 5.0f;
+    private float _smoothValue = 0.1f;
+    private Vector3 vector;
 
     void Start()
     {
@@ -28,8 +40,9 @@ public class Enemy : MonoBehaviour
         _playerState = _player.GetComponent<PlayerMovement>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<CapsuleCollider>();
-
+        
         ActivateRagdoll(false);
+        ChooseMySkin();
     }
 
     void Update()
@@ -37,19 +50,25 @@ public class Enemy : MonoBehaviour
         if (_isLooking)
         {
             _distance = Vector3.Distance(_player.position, transform.position);
-
+            transform.LookAt(_player);
+            /*
             if ((_distance <= _visibleDistance) &&( _distance > 2.0f ) )
             {
-
-                transform.LookAt(_player);
+                vector = (_player.position-transform.position)/_distance;
+                transform.rotation.SetLookRotation(vector);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion(vector), _smoothValue);
+                //Quaternion.Lerp(transform.rotation, Qu, _smoothValue)
+                //transform.LookAt(_player);
                 //_headTransform.LookAt(_player);
 
             }
+            */
         }
         if (!_finalState) 
         {
             if (_playerState.GetState() == CharacterState.Final)
             {
+                _isLooking = false;
                 _finalState = true;
                 //_collider.isTrigger = false;
                 //_box.SetActive(false);
@@ -69,7 +88,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.CompareTag(NameManager.Weapon))
+        if (other.gameObject.CompareTag("Staff"))
         {
             Debug.LogWarning("Атака прошла");
 
@@ -79,12 +98,50 @@ public class Enemy : MonoBehaviour
             ForceVector.z = 60f;
             
             ActivateRagdoll(true);
+            _weaponObject.OnEnemyDeath();
+            
 
             //EnemyModelRigidbody.AddForce(ForceVector, ForceMode.Impulse);
-            EnemyModelRigidbody.AddForce(Vector3.left * 50, ForceMode.Impulse);
-            Destroy(gameObject, 5.0f);
+            EnemyModelRigidbody.AddForce(Vector3.left * _addForcePower, ForceMode.Impulse);
+            Destroy(gameObject, _destroyTime);
 
         }
+    }
+
+    private void ChooseMySkin()
+    {
+        if (_enemyesSkinVariations[0] != null)
+        {
+
+            _skinIndex = Random.Range(0, _enemyesSkinVariations.Length);
+            foreach (GameObject skin in _enemyesSkinVariations)
+            {
+                skin.SetActive(false);
+            }
+            _enemyesSkinVariations[_skinIndex].SetActive(true);
+        }
+
+        if (_enemyesMaskVariations[0] != null)
+        {
+            _maskIndex = Random.Range(0, _enemyesMaskVariations.Length);
+            foreach (GameObject mask in _enemyesMaskVariations)
+            {
+                mask.SetActive(false);
+            }
+            _enemyesMaskVariations[_maskIndex].SetActive(true);
+        }
+
+        if (_enemyesWeaponVariations[0] != null)
+        {
+            _weaponIndex = Random.Range(0, _enemyesWeaponVariations.Length);
+            foreach (GameObject weapon in _enemyesWeaponVariations)
+            {
+                weapon.SetActive(false);
+            }
+            _enemyesWeaponVariations[_weaponIndex].SetActive(true);
+        }
+
+        _weaponObject = _enemyesWeaponVariations[_weaponIndex].GetComponent<EnemyWeapon>();
     }
 
     private void ActivateRagdoll(bool state)
