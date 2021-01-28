@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private StickModel _stickModel;
 	[SerializeField] private Transform _playerTransform;
 	[SerializeField] private Rigidbody _playerRigidbody;
-	[SerializeField] private CharacterState _currentState;
+	[SerializeField] public CharacterState _currentState;
 	[SerializeField] private Vector3 _delay;
 	[SerializeField] private Vector3 _startPosition;
 	[SerializeField] private Vector3 _movingVector;
@@ -65,9 +65,10 @@ public class PlayerMovement : MonoBehaviour
                 }
 			case CharacterState.Final:
 				{
+					
 					_animator.SetBool("RunState", false);
 					_animator.SetBool("FlyState", false);
-					_animator.SetBool("FinalState", true);					
+					_animator.SetBool("FinalState", true);
 					break;
 				}
             default: _animator.SetBool("RunState", true); break;
@@ -127,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (state == CharacterState.Fly && _currentState != state)
 		{
+			_animator.applyRootMotion = false;
 			_currentState = state;
 			_isRunning = false;
 			_playerRigidbody.isKinematic = true;
@@ -134,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else if (state == CharacterState.Run && _currentState != state)
 		{
+			_animator.applyRootMotion = false;
 			_currentState = state;
 			_isRunning = true;
 			_playerRigidbody.isKinematic = false;
@@ -141,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else if (state == CharacterState.Final && _currentState != state)
 		{
+			_animator.applyRootMotion = true;
 			_currentState = state;
 			_isRunning = false;
 		}
@@ -173,5 +177,10 @@ public class PlayerMovement : MonoBehaviour
 	private void AttackCooldownReset()
 	{
 		_attackInCoolDown = false;
+	}
+
+	public CharacterState GetState()
+	{
+		return _currentState;
 	}
 }
