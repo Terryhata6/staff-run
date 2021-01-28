@@ -1706,7 +1706,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287983220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 121.9}
+  m_LocalPosition: {x: 0, y: 1.5, z: -2.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 219384298}
@@ -3635,7 +3635,7 @@ GameObject:
   - component: {fileID: 615080444}
   m_Layer: 0
   m_Name: MainStaff
-  m_TagString: Weapon
+  m_TagString: Staff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4378,7 +4378,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 250e85fb632af1e499adc633ed7371ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 250e85fb632af1e499adc633ed7371ed,
         type: 3}
@@ -6547,7 +6547,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 888cb0a34ea0ee94e8853cd174057070, type: 2}
   - {fileID: 11400000, guid: 888cb0a34ea0ee94e8853cd174057070, type: 2}
   - {fileID: 11400000, guid: 888cb0a34ea0ee94e8853cd174057070, type: 2}
-  _levelNumber: 1
 --- !u!4 &1263266036
 Transform:
   m_ObjectHideFlags: 0
@@ -8791,7 +8790,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 34bd46a4179843446844805a428cd3c4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 34bd46a4179843446844805a428cd3c4,
         type: 3}
@@ -9852,6 +9851,7 @@ GameObject:
   - component: {fileID: 1839109286}
   - component: {fileID: 1839109285}
   - component: {fileID: 1839109287}
+  - component: {fileID: 1839109288}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -9901,11 +9901,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd6f573d23e6a243a29ffe5abca0228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 8423058399932722617, guid: dccaa3cc69f064d4faa4c50cc0ae2411, type: 3}
+  _enemy: {fileID: 8423058399932722617, guid: 61d26ffdf25f31c4fa2b09dd28214d5d, type: 3}
   _enemySpawnPos: []
   _collectables: {fileID: 6708645853201507573, guid: cc0d3870615e8494d9283bf219135b52,
     type: 3}
   _collectablesSpawnPos: []
+  _coins: {fileID: 0}
+  _coinsSpawnPos: []
+--- !u!114 &1839109288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839109284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1695d13d810d06b408a03dd33e7c4a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelNumber: 0
 --- !u!1001 &1844105044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11304,6 +11319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainStaff
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717230127810286883, guid: 0d802896a92c5d64d916bd0bc00381f4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Staff
       objectReference: {fileID: 0}
     - target: {fileID: 6717230127810286889, guid: 0d802896a92c5d64d916bd0bc00381f4,
         type: 3}

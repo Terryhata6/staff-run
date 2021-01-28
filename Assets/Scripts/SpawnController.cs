@@ -8,9 +8,9 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private GameObject[] _collectablesSpawnPos;
     [SerializeField] private GameObject _coins;
     [SerializeField] private GameObject[] _coinsSpawnPos;
-    private bool _spawnedEnemy;
-    private bool _spawnedCollectables;
-    private bool _spawnedCoins;
+    private bool _spawnedEnemy = false;
+    private bool _spawnedCollectables = false;
+    private bool _spawnedCoins = false;
 
     void Start()
     {
@@ -20,23 +20,24 @@ public class SpawnController : MonoBehaviour
 
     private void Update()
     {
-        if (_enemySpawnPos[0] == null && _spawnedEnemy == false)
+        if (_enemySpawnPos[0] == null /*&& _spawnedEnemy == false*/)
         {
             SpawnEnemy();
             _spawnedEnemy = true;
         }
 
-        if(_collectablesSpawnPos[0] == null && _spawnedCollectables == false)
+        if(_collectablesSpawnPos[0] == null/* && _spawnedCollectables == false*/)
         {
             SpawnCollectables();
             _spawnedCollectables = true;
         }
-
+        /*
         if (_coinsSpawnPos[0] == null && _spawnedCoins == false)
         {
             SpawnCoins();
             _spawnedCoins = true;
         }
+        */
     }
 
     private void SpawnEnemy()

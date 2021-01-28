@@ -16,10 +16,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject[] _enemyesMaskVariations;
     [SerializeField] private GameObject[] _enemyesWeaponVariations;
     [SerializeField] private float _addForcePower;
+    [SerializeField] private Animator _animator;
 
     private Transform _player;
     private float _distance;
-    private Animator _animator;
     public Rigidbody EnemyModelRigidbody;
     private Vector3 ForceVector;
     private PlayerMovement _playerState;
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.CompareTag("Weapon"))
+        if (other.gameObject.CompareTag("Staff"))
         {
             Debug.LogWarning("Атака прошла");
 
