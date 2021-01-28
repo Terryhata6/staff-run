@@ -1706,7 +1706,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287983220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 121.9}
+  m_LocalPosition: {x: 0, y: 1.5, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 219384298}
@@ -4378,7 +4378,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 250e85fb632af1e499adc633ed7371ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 250e85fb632af1e499adc633ed7371ed,
         type: 3}
@@ -8791,7 +8791,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 34bd46a4179843446844805a428cd3c4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 34bd46a4179843446844805a428cd3c4,
         type: 3}
@@ -9901,7 +9901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd6f573d23e6a243a29ffe5abca0228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 8423058399932722617, guid: dccaa3cc69f064d4faa4c50cc0ae2411, type: 3}
+  _enemy: {fileID: 8423058399932722617, guid: 61d26ffdf25f31c4fa2b09dd28214d5d, type: 3}
   _enemySpawnPos: []
   _collectables: {fileID: 6708645853201507573, guid: cc0d3870615e8494d9283bf219135b52,
     type: 3}
@@ -11309,6 +11309,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mass
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717230127810286889, guid: 0d802896a92c5d64d916bd0bc00381f4,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717230127810286889, guid: 0d802896a92c5d64d916bd0bc00381f4,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d802896a92c5d64d916bd0bc00381f4, type: 3}
