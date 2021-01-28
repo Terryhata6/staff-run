@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private StickModel _stickModel;
 	[SerializeField] private Transform _playerTransform;
 	[SerializeField] private Rigidbody _playerRigidbody;
-	[SerializeField] private CharacterState _currentState;
+	[SerializeField] public CharacterState _currentState;
 	[SerializeField] private Vector3 _delay;
 	[SerializeField] private Vector3 _startPosition;
 	[SerializeField] private Vector3 _movingVector;
@@ -19,10 +20,18 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private Vector2 _minScreenPosition, _maxScreenPosition;
 	[SerializeField] private bool _delayCounted;
 	[SerializeField] private bool _isRunning;
+	[SerializeField] private float _sliderSensetivity = 3.0f;
+	[SerializeField] private Animator _animator;
+	[SerializeField] private StickModel _staff;
+
+	private float _attackCoolDown = 1.0f;
+	private bool _attackInCoolDown = false;
 
 	private void Start()
 	{
+		_currentState = CharacterState.Run;
 		_playerTransform = GetComponent<Transform>();
+		_animator = GetComponentInChildren<Animator>();
 		_inputController = FindObjectOfType<InputController>();
 		_stickModel = FindObjectOfType<StickModel>();
 		_delay = new Vector3(0, YDelay);
@@ -32,45 +41,39 @@ public class PlayerMovement : MonoBehaviour
 		_screenWall = new Vector3(Mathf.Clamp(transform.position.x, _minScreenPosition.x, _maxScreenPosition.x), Mathf.Clamp(transform.position.y, _minScreenPosition.y, _maxScreenPosition.y), transform.position.z);
 		_playerRigidbody = GetComponent<Rigidbody>();
 		_isRunning = true;
+		ChangePlayerState(CharacterState.Run);
 	}
 	//передвигает обьект в зависимости от положения пальца
 	private void FixedUpdate()
 	{
-		if (_isRunning)
+		switch (_currentState)
 		{
-			_movingVector = _playerTransform.position;
-			_movingVector.z += MovingSpeed;
-			if (_inputController.DragingStarted)
-			{
-				if (!_delayCounted)
+			case CharacterState.Run:
+                {
+					
+					_animator.SetBool("RunState", true);
+					_animator.SetBool("FlyState", false);
+					OnRunMovement();
+                    break;
+                }
+            case CharacterState.Fly:
+                {					
+					_animator.SetBool("RunState", false);
+					_animator.SetBool("FlyState", true);
+					OnFlyMovement();
+                    break;
+                }
+			case CharacterState.Final:
 				{
-					_delay = _inputController.TouchPosition;
-					_startPosition = _playerTransform.position;
-					_delayCounted = true;
+					
+					_animator.SetBool("RunState", false);
+					_animator.SetBool("FlyState", false);
+					_animator.SetBool("FinalState", true);
+					break;
 				}
-				_movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * 3f;
-				_playerTransform.position = _movingVector;
-			}
-			else
-			{
-				_delayCounted = false;
-			}
-			_playerTransform.position = _movingVector;
-		}
-		else
-		{
-			_movingVector = _playerTransform.position;
-			_movingVector.z += MovingSpeed;
-			if (_inputController.DragingStarted)
-			{
-				_movingVector.y += MovingUpSpeed;
-			}
-			else
-			{
-				_movingVector.y -= MovingDownSpeed;
-			}
-			_playerTransform.position = _movingVector;
-		}
+            default: _animator.SetBool("RunState", true); break;
+		}	
+		
 		if(_playerTransform.position.y <= -5)
 		{
 			Debug.Log("Game Over");
@@ -78,15 +81,54 @@ public class PlayerMovement : MonoBehaviour
 		//ограничение экрана
 		/*_screenWall.x = Mathf.Clamp(transform.position.x, _minScreenPosition.x, _maxScreenPosition.x);
 		_screenWall.y = Mathf.Clamp(transform.position.y, _minScreenPosition.y, _maxScreenPosition.y);
-		transform.position = _screenWall;*/
-
+		transform.position = _screenWall;*/		
 	}
-	public void ChangePlayerState(CharacterState state)
+
+    
+
+    private void OnFlyMovement()
+    {
+        _movingVector = _playerTransform.position;
+        _movingVector.z += MovingSpeed;
+        if (_inputController.DragingStarted)
+        {
+            _movingVector.y += MovingUpSpeed;
+        }
+        else
+        {
+            _movingVector.y -= MovingDownSpeed;
+        }
+        _playerTransform.position = _movingVector;
+    }
+    private void OnRunMovement()
+    {
+        _movingVector = _playerTransform.position;
+        _movingVector.z += MovingSpeed;
+        if (_inputController.DragingStarted)
+        {
+            if (!_delayCounted)
+            {
+                _delay = _inputController.TouchPosition;
+                _startPosition = _playerTransform.position;
+                _delayCounted = true;
+            }
+            _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;			
+            _playerTransform.position = _movingVector;
+        }
+        else
+        {
+            _delayCounted = false;
+        }
+        _playerTransform.position = _movingVector;
+    }
+
+    public void ChangePlayerState(CharacterState state)
 	{
 		Debug.Log("ChangePalyerState");
 
-		if (state == CharacterState.Fly && _currentState!= state)
+		if (state == CharacterState.Fly && _currentState != state)
 		{
+			_animator.applyRootMotion = false;
 			_currentState = state;
 			_isRunning = false;
 			_playerRigidbody.isKinematic = true;
@@ -94,11 +136,19 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else if (state == CharacterState.Run && _currentState != state)
 		{
+			_animator.applyRootMotion = false;
 			_currentState = state;
 			_isRunning = true;
 			_playerRigidbody.isKinematic = false;
 			_stickModel.ChangePositionOfStick();
 		}
+		else if (state == CharacterState.Final && _currentState != state)
+		{
+			_animator.applyRootMotion = true;
+			_currentState = state;
+			_isRunning = false;
+		}
+
 	}
 	private void MoveForward()
 	{
@@ -106,6 +156,31 @@ public class PlayerMovement : MonoBehaviour
 		_movingVector.z += MovingSpeed;
 		_playerTransform.position = _movingVector;*/
 		_playerTransform.Translate(Vector3.forward * 10f);
+	}
 
+	private void OnTriggerEnter(Collider _entryCollider)
+	{
+		if (!_attackInCoolDown)
+		{
+			if (_entryCollider.gameObject.CompareTag("EnemyInAttackRange"))
+			{
+				if (!_attackInCoolDown)
+				{
+					_animator.SetTrigger("Attack 1");
+					_attackInCoolDown = true;
+					Invoke("AttackCooldownReset", _attackCoolDown);
+				}
+			}
+		}
+	}
+
+	private void AttackCooldownReset()
+	{
+		_attackInCoolDown = false;
+	}
+
+	public CharacterState GetState()
+	{
+		return _currentState;
 	}
 }
