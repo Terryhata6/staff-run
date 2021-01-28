@@ -115,8 +115,8 @@ public class StickModel : MonoBehaviour
 			_rigidbody.isKinematic = false;
 
 			transform.rotation = Quaternion.Euler(0,0 ,90);
-			_rigidbody.AddForce(new Vector3(0, 0.2f, 1)*33.5f, ForceMode.Impulse);
-			_rigidbody.AddTorque(new Vector3(0, -1, 0)*500.0f, ForceMode.Impulse);
+			_rigidbody.AddForce(new Vector3(0, 0.2f, 1)*335f, ForceMode.Impulse);
+			_rigidbody.AddTorque(new Vector3(0, -1, 0)*505f, ForceMode.Impulse);
 			_camera.SetPursuedObject(gameObject);
 			_collider.isTrigger = false;
 			
@@ -140,4 +140,14 @@ public class StickModel : MonoBehaviour
 			_isFinalStage = false;
 		}
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+		if (collision.gameObject.GetComponent<Enemy>())
+		{
+			collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.GetContact(0).point * (-1),ForceMode.Impulse);
+			Debug.Log("Челик оттолкнулся");
+			
+		}
+    }
 }

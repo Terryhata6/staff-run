@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private StickModel _stickModel;
 	[SerializeField] private Transform _playerTransform;
 	[SerializeField] private Rigidbody _playerRigidbody;
-	[SerializeField] private CharacterState _currentState;
+	[SerializeField] public CharacterState _currentState;
 	[SerializeField] private Vector3 _delay;
 	[SerializeField] private Vector3 _startPosition;
 	[SerializeField] private Vector3 _movingVector;
@@ -177,5 +177,10 @@ public class PlayerMovement : MonoBehaviour
 	private void AttackCooldownReset()
 	{
 		_attackInCoolDown = false;
+	}
+
+	public CharacterState GetState()
+	{
+		return _currentState;
 	}
 }
