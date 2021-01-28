@@ -7,12 +7,19 @@ public class UIController : MonoBehaviour
     private PauseMenu _pauseMenu;
     private EndGameMenu _endGameMenu;
 
+    private MainController _mainController;
+
     private void Start()
     {
+        _mainController = FindObjectOfType<MainController>();
+
         _mainMenu = GetComponentInChildren<MainMenu>();
         _inGameUI = GetComponentInChildren<InGameUI>();
         _pauseMenu = GetComponentInChildren<PauseMenu>();
         _endGameMenu = GetComponentInChildren<EndGameMenu>();
+
+        SwitchUI(UIState.MainMenu);
+        PauseGame();
     }
 
     public void SwitchUI(UIState state)
@@ -48,21 +55,19 @@ public class UIController : MonoBehaviour
 
     public void StartGame()
     {
-        //TODO
+        _mainController.StartGame();
+        SwitchUI(UIState.InGame);
     }
     public void PauseGame()
     {
-        //TODO
+        _mainController.PauseGame();
+        SwitchUI(UIState.Pause);
     }
-    public void ResumeGame()
+    public void NextLevel()
     {
-        //TODO
+        _mainController.NextLevel();
     }
-    public void EndGame()
-    {
-        //TODO
-    }
-    public void ExitGame()
+    public void EndGame(bool isLevelConplete)
     {
         //TODO
     }

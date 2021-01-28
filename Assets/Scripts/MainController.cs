@@ -37,7 +37,7 @@ public class MainController : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void ResumeGame()
+    public void StartGame()
     {
         Time.timeScale = 1;
     }
