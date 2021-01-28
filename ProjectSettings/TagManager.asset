@@ -12,6 +12,7 @@ TagManager:
   - Collectables
   - SpawnCoins
   - Staff
+  - FinalTrigger
   layers:
   - Default
   - TransparentFX
