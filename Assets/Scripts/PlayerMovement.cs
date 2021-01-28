@@ -15,12 +15,14 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] public CharacterState _currentState;
 	[SerializeField] private Vector3 _delay;
 	[SerializeField] private Vector3 _startPosition;
+	[SerializeField] private Vector3 _startTouchPosition;
 	[SerializeField] private Vector3 _movingVector;
 	[SerializeField] private Vector3 _screenWall;
 	[SerializeField] private Vector2 _minScreenPosition, _maxScreenPosition;
 	[SerializeField] private bool _delayCounted;
 	[SerializeField] private bool _isRunning;
 	[SerializeField] private float _sliderSensetivity = 3.0f;
+	[SerializeField] private float _sideDelay;
 	[SerializeField] private Animator _animator;
 	[SerializeField] private StickModel _staff;
 
@@ -91,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _movingVector = _playerTransform.position;
         _movingVector.z += MovingSpeed;
-        if (_inputController.DragingStarted)
+        if (_inputController.InputStarted)
         {
             _movingVector.y += MovingUpSpeed;
         }
@@ -105,14 +107,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _movingVector = _playerTransform.position;
         _movingVector.z += MovingSpeed;
-        if (_inputController.DragingStarted)
+        if (_inputController.InputStarted)
         {
             if (!_delayCounted)
             {
                 _delay = _inputController.TouchPosition;
+				_startTouchPosition = _inputController.TouchPosition;
                 _startPosition = _playerTransform.position;
-                _delayCounted = true;
-            }
+                _delayCounted = true; 
+				
+			}
             _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;			
             _playerTransform.position = _movingVector;
         }
@@ -120,23 +124,32 @@ public class PlayerMovement : MonoBehaviour
         {
             _delayCounted = false;
         }
-
-		if (_inputController.TouchPosition.x - _delay.x > 0)
-		{
-			_animator.SetBool("RightRun", true);
-			_animator.SetBool("LeftRun", false);
-		}
-		else if (_inputController.TouchPosition.x - _delay.x < 0)
+		_sideDelay = _startTouchPosition.x - _inputController.TouchPosition.x;
+		if (_sideDelay > 0.05f)
 		{
 			_animator.SetBool("RightRun", false);
 			_animator.SetBool("LeftRun", true);
 		}
-		else if(!_inputController.DragingStarted)
+		else if (_sideDelay < -0.05f)
+		{
+			_animator.SetBool("RightRun", true);
+			_animator.SetBool("LeftRun", false);
+		}
+		if(!_inputController.InputStarted || _sideDelay < 0.05f && _sideDelay > -0.05f)
 		{
 			_animator.SetBool("RightRun", false);
 			_animator.SetBool("LeftRun", false);
 		}
-        _playerTransform.position = _movingVector;
+		if (_sideDelay > 0)
+		{
+			_startTouchPosition.x -= 0.05f;
+		}
+		else if (_sideDelay < 0)
+		{
+			_startTouchPosition.x += 0.05f;
+		}
+		Debug.Log("_sideDelay = " + _sideDelay);
+		_playerTransform.position = _movingVector;
     }
 
 	

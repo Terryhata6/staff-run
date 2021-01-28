@@ -80,12 +80,12 @@ public class StickModel : MonoBehaviour
 		}
 		if (_isRotating)
 		{
-			if(_inputController.DragingStarted && _rotatingSpeed != MaxRotatingSpeed)
+			if(_inputController.InputStarted && _rotatingSpeed != MaxRotatingSpeed)
 			{
 				_rotatingSpeed = MaxRotatingSpeed;
 				_rotatingVector.x = _rotatingSpeed;
 			}
-			else if (!_inputController.DragingStarted && _rotatingSpeed != RotatingSpeed)
+			else if (!_inputController.InputStarted && _rotatingSpeed != RotatingSpeed)
 			{
 				_rotatingSpeed = RotatingSpeed;
 				_rotatingVector.x = _rotatingSpeed;

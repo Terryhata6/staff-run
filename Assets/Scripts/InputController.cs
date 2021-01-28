@@ -4,7 +4,7 @@ public class InputController : MonoBehaviour
 {
 	//следит за пальцем на экране
 	public Vector3 TouchPosition;
-	public bool DragingStarted = false;
+	public bool InputStarted = false;
 	public bool UseMouse = false;
 	public Camera CameraForInput;
 	private Touch touch;
@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
 				touch = Input.GetTouch(0);
 				if (touch.phase == TouchPhase.Began)
 				{
-					DragingStarted = true;
+					InputStarted = true;
 					TouchPosition = CameraForInput.ScreenToWorldPoint(touch.position);
 				}
 				else if (touch.phase == TouchPhase.Moved)
@@ -34,19 +34,19 @@ public class InputController : MonoBehaviour
 			}
 			else
 			{
-				DragingStarted = false;
+				InputStarted = false; 
 			}
 		}
 		else
 		{
 			if (Input.GetMouseButton(0))
 			{
-				DragingStarted = true;
+				InputStarted = true;
 				TouchPosition = Input.mousePosition / 100;
 			}
 			else
 			{
-				DragingStarted = false;
+				InputStarted = false;
 			}
 		}
 	}
