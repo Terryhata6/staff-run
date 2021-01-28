@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private bool _isRunning;
 	[SerializeField] private float _sliderSensetivity = 3.0f;
 	[SerializeField] private Animator _animator;
+	[SerializeField] private StickModel _staff;
+
+	private float _attackCoolDown = 1.0f;
+	private bool _attackInCoolDown = false;
 
 	private void Start()
 	{
@@ -45,20 +50,29 @@ public class PlayerMovement : MonoBehaviour
 		{
 			case CharacterState.Run:
                 {
+					
 					_animator.SetBool("RunState", true);
 					_animator.SetBool("FlyState", false);
 					OnRunMovement();
                     break;
                 }
             case CharacterState.Fly:
-                {
+                {					
 					_animator.SetBool("RunState", false);
 					_animator.SetBool("FlyState", true);
 					OnFlyMovement();
                     break;
                 }
+			case CharacterState.Final:
+				{
+					_animator.SetBool("RunState", false);
+					_animator.SetBool("FlyState", false);
+					_animator.SetBool("FinalState", true);					
+					break;
+				}
             default: _animator.SetBool("RunState", true); break;
-		}		
+		}	
+		
 		if(_playerTransform.position.y <= -5)
 		{
 			Debug.Log("Game Over");
@@ -66,9 +80,10 @@ public class PlayerMovement : MonoBehaviour
 		//ограничение экрана
 		/*_screenWall.x = Mathf.Clamp(transform.position.x, _minScreenPosition.x, _maxScreenPosition.x);
 		_screenWall.y = Mathf.Clamp(transform.position.y, _minScreenPosition.y, _maxScreenPosition.y);
-		transform.position = _screenWall;*/
-		
+		transform.position = _screenWall;*/		
 	}
+
+    
 
     private void OnFlyMovement()
     {
@@ -84,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
         }
         _playerTransform.position = _movingVector;
     }
-
     private void OnRunMovement()
     {
         _movingVector = _playerTransform.position;
@@ -97,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 _startPosition = _playerTransform.position;
                 _delayCounted = true;
             }
-            _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;
+            _movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;			
             _playerTransform.position = _movingVector;
         }
         else
@@ -125,6 +139,11 @@ public class PlayerMovement : MonoBehaviour
 			_playerRigidbody.isKinematic = false;
 			_stickModel.ChangePositionOfStick();
 		}
+		else if (state == CharacterState.Final && _currentState != state)
+		{
+			_currentState = state;
+			_isRunning = false;
+		}
 
 	}
 	private void MoveForward()
@@ -133,6 +152,26 @@ public class PlayerMovement : MonoBehaviour
 		_movingVector.z += MovingSpeed;
 		_playerTransform.position = _movingVector;*/
 		_playerTransform.Translate(Vector3.forward * 10f);
+	}
 
+	private void OnTriggerEnter(Collider _entryCollider)
+	{
+		if (!_attackInCoolDown)
+		{
+			if (_entryCollider.gameObject.CompareTag("EnemyInAttackRange"))
+			{
+				if (!_attackInCoolDown)
+				{
+					_animator.SetTrigger("Attack 1");
+					_attackInCoolDown = true;
+					Invoke("AttackCooldownReset", _attackCoolDown);
+				}
+			}
+		}
+	}
+
+	private void AttackCooldownReset()
+	{
+		_attackInCoolDown = false;
 	}
 }
