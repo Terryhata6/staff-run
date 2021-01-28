@@ -22,9 +22,6 @@ public class Enemy : MonoBehaviour
     private CapsuleCollider _collider;
     private bool _finalState = false;
 
-    
-
-
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
@@ -72,7 +69,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.CompareTag("Weapon"))
+        if (other.gameObject.CompareTag(NameManager.Weapon))
         {
             Debug.LogWarning("Атака прошла");
 
