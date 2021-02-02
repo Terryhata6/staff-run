@@ -24,7 +24,7 @@ public class InGameUI : BaseMenu
 
     private void Update()
     {
-        _coinsText.GetControl.text = $"{_coinManager.GetCurrentCoin()}";
+        //_coinsText.GetControl.text = $"{_coinManager.GetCurrentCoin()}";
     }
 
     public override void Hide()

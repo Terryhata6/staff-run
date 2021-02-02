@@ -91,15 +91,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _movingVector = _playerTransform.position;
         _movingVector.z += MovingSpeed;
-        if (_inputController.DragingStarted)
+		if (_inputController.DragingStarted && _stickModel.CanFlyUp)
         {
             _movingVector.y += MovingUpSpeed;
-        }
-        else
-        {
-            _movingVector.y -= MovingDownSpeed;
-        }
+        }		
+		else
+		{
+			_movingVector.y -= MovingDownSpeed;
+		}
         _playerTransform.position = _movingVector;
+		
     }
     private void OnRunMovement()
     {
@@ -163,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else if (state == CharacterState.Final && _currentState != state)
 		{
-			_animator.applyRootMotion = true;
+			
 			_currentState = state;
 			_isRunning = false;
 		}
@@ -198,6 +199,10 @@ public class PlayerMovement : MonoBehaviour
 		_attackInCoolDown = false;
 	}
 
+	public void SetAnimatorApplyMotion(bool value)
+	{
+		_animator.applyRootMotion = value;
+	}
 	public CharacterState GetState()
 	{
 		return _currentState;

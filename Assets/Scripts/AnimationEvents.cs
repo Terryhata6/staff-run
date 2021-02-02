@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationEvents : MonoBehaviour
 {
     [SerializeField] StickModel _staff;
+    [SerializeField] PlayerMovement _player;
 
     public void StaffAttackStarted()
     {
@@ -15,6 +16,11 @@ public class AnimationEvents : MonoBehaviour
     public void StaffAttackEnded()
     {
         _staff.StaffAttackEnd();
+    }
+
+    private void OnFinalMovementStart()
+    {
+        _player.SetAnimatorApplyMotion(true);
     }
 
     private void OnFinalMovement()
