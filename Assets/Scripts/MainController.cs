@@ -20,11 +20,11 @@ public class MainController : MonoBehaviour
 
         _levelNumber = _saveData.LoadInt(SaveKeyManager.KeyLevelNumber);
         _coins = _saveData.LoadInt(SaveKeyManager.KeyCoins);
+        _levelBuilder.BuildLevel(_levelNumber);
     }
 
     private void Start()
     {
-        _levelBuilder.BuildLevel(_levelNumber);
     }
 
     private void Update()

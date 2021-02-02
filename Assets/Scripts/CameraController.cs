@@ -14,7 +14,7 @@ using UnityEditor;
 /// 
 /// </summary>
 
-[InitializeOnLoad]
+//[InitializeOnLoad]
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject _pursuedObject;
