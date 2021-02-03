@@ -67,8 +67,13 @@ public class UIController : MonoBehaviour
     {
         _mainController.NextLevel();
     }
-    public void EndGame(bool isLevelConplete)
+    public void RestartLevel()
     {
-        //TODO
+        _mainController.RestartScene();
+    }
+    public void EndGame(bool isLevelComplete, int levelNumber)
+    {
+        SwitchUI(UIState.EndGame);
+        _endGameMenu.ActivateMenu(isLevelComplete, levelNumber);
     }
 }

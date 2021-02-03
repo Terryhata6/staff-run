@@ -7,8 +7,10 @@ public class MainController : MonoBehaviour
     [SerializeField] private int _levelNumber;
 
     private LevelBuilder _levelBuilder;
-    private CoinManager _coinManager;
     private SaveDataRepo _saveData;
+    private UIController _uiController;
+
+    private CoinManager _coinManager;
     private int _coins;
 
 
@@ -17,6 +19,8 @@ public class MainController : MonoBehaviour
         _saveData = new SaveDataRepo();
         
         _levelBuilder = FindObjectOfType<LevelBuilder>();
+        _uiController = FindObjectOfType<UIController>();
+        _coinManager = FindObjectOfType<CoinManager>();
 
         _levelNumber = _saveData.LoadInt(SaveKeyManager.KeyLevelNumber);
         _coins = _saveData.LoadInt(SaveKeyManager.KeyCoins);
@@ -25,11 +29,7 @@ public class MainController : MonoBehaviour
 
     private void Start()
     {
-    }
-
-    private void Update()
-    {
-        
+        _coinManager.SetCurrentCoins(_coins);
     }
 
     public void PauseGame()
@@ -56,6 +56,11 @@ public class MainController : MonoBehaviour
         SaveStats();
 
         RestartScene();
+    }
+
+    public void EndLevel(bool isLevelComplete)
+    {
+        _uiController.EndGame(isLevelComplete, _levelNumber);
     }
 
     public int GetLevelNumber()
