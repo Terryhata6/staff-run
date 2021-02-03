@@ -4,9 +4,9 @@ public class CoinManager : MonoBehaviour
 {
     private int _currentCoin = 0;
 
-    public void AddCoin()
+    public void AddCoin(int count)
     {
-        _currentCoin ++;
+        _currentCoin += count;
     }
 
     public void ResetCoin()
@@ -17,5 +17,9 @@ public class CoinManager : MonoBehaviour
     public int GetCurrentCoin()
     {
         return _currentCoin;
+    }
+    public void SetCurrentCoins(int count)
+    {
+        _currentCoin = count;
     }
 }
