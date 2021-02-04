@@ -32,11 +32,12 @@ public class Enemy : MonoBehaviour
     private EnemyWeapon _weaponObject;
     private float _destroyTime = 5.0f;
     private float _smoothValue = 0.1f;
-    private Vector3 vector;
+    private Vector3 _smoothVector;
 
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
+        _smoothVector = new Vector3(1, 0, 1);
+           _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
         _playerState = _player.GetComponent<PlayerMovement>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<CapsuleCollider>();
@@ -50,7 +51,10 @@ public class Enemy : MonoBehaviour
         if (_isLooking)
         {
             _distance = Vector3.Distance(_player.position, transform.position);
-            transform.LookAt(_player);
+            _smoothVector = _player.position;
+            _smoothVector.y = transform.position.y;
+            transform.LookAt(_smoothVector);
+            _headTransform.LookAt(_player);
             /*
             if ((_distance <= _visibleDistance) &&( _distance > 2.0f ) )
             {
@@ -58,8 +62,7 @@ public class Enemy : MonoBehaviour
                 transform.rotation.SetLookRotation(vector);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion(vector), _smoothValue);
                 //Quaternion.Lerp(transform.rotation, Qu, _smoothValue)
-                //transform.LookAt(_player);
-                //_headTransform.LookAt(_player);
+                //transform.LookAt(_player);               
 
             }
             */

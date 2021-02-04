@@ -3344,7 +3344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visibleDistance: 10
-  _headTransform: {fileID: 0}
+  _headTransform: {fileID: 3366676327909488989}
   _isLooking: 1
   _box: {fileID: 987638757620703465}
   _bodyBone: {fileID: 1587000600338463096}
@@ -3372,6 +3372,7 @@ MonoBehaviour:
   - {fileID: 1706451352600589142}
   - {fileID: 7197115176245301322}
   _addForcePower: 0
+  _animator: {fileID: 0}
   EnemyModelRigidbody: {fileID: 2344797900760374549}
 --- !u!54 &2344797900760374549
 Rigidbody:
