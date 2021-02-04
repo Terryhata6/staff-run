@@ -2252,14 +2252,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4203990140571450829}
-  m_LocalRotation: {x: 0, y: 0, z: 4.2064852e-27, w: 1}
+  m_LocalRotation: {x: -0.00000009685753, y: 0.07335414, z: -0.00000001117587, w: 0.997306}
   m_LocalPosition: {x: -0, y: 0.06502716, z: 0.004976939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5514478510897248216}
   m_Father: {fileID: 6039284327005261373}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 8.413, z: 0}
 --- !u!1 &4206212183424558477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3952,8 +3952,15 @@ MonoBehaviour:
   _headTransform: {fileID: 0}
   _isLooking: 1
   _box: {fileID: 987638757620703465}
-  _rigsNormal: {fileID: 1587000600338463096}
-  _rigsRagdoll: {fileID: 3940819766766201024}
+  _bodyBone: {fileID: 0}
+  _bigCapsule: {fileID: 0}
+  _smallCapsule: {fileID: 0}
+  _cube: {fileID: 0}
+  _enemyesSkinVariations: []
+  _enemyesMaskVariations: []
+  _enemyesWeaponVariations: []
+  _addForcePower: 0
+  _animator: {fileID: 0}
   EnemyModelRigidbody: {fileID: 2344797900760374549}
 --- !u!54 &2344797900760374549
 Rigidbody:
