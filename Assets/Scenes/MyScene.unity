@@ -1730,6 +1730,7 @@ MonoBehaviour:
   MovingSpeed: 0.08
   MovingUpSpeed: 0.2
   MovingDownSpeed: 0.04
+  RotationForce: 150
   _inputController: {fileID: 0}
   _stickModel: {fileID: 0}
   _playerTransform: {fileID: 0}
@@ -1737,13 +1738,16 @@ MonoBehaviour:
   _currentState: 0
   _delay: {x: 0, y: 0, z: 0}
   _startPosition: {x: 0, y: 0, z: 0}
+  _startTouchPosition: {x: 0, y: 0, z: 0}
   _movingVector: {x: 0, y: 0, z: 0}
+  _rotationVector: {x: 0, y: 0, z: 0}
   _screenWall: {x: 0, y: 0, z: 0}
   _minScreenPosition: {x: 0, y: 0}
   _maxScreenPosition: {x: 0, y: 0}
   _delayCounted: 0
   _isRunning: 0
   _sliderSensetivity: 3
+  _sideDelay: 0
   _animator: {fileID: 0}
   _staff: {fileID: 0}
 --- !u!54 &287983226
@@ -9751,7 +9755,7 @@ MonoBehaviour:
   DragingStarted: 0
   OnTouch: 0
   _oneTouchRota: 0
-  UseMouse: 1
+  UseMouse: 0
   CameraForInput: {fileID: 518824836}
 --- !u!4 &1839109286
 Transform:
@@ -11268,6 +11272,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 926244656829549186, guid: ea61f121468b8324c83581778c3c63b9,
         type: 3}
+    - target: {fileID: 7492150936693381171, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: RotatingSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492150936693381171, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: MaxRotatingSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7492150936693381180, guid: a1dc8803cb1163a42a9351ed97546272,
         type: 3}
       propertyPath: m_LocalPosition.x
