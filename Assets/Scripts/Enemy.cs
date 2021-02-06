@@ -20,28 +20,32 @@ public class Enemy : MonoBehaviour
 
     private Transform _player;
     private float _distance;
-    public Rigidbody EnemyModelRigidbody;
+    public Rigidbody _enemyModelRigidbody;
     private Vector3 ForceVector;
     private PlayerMovement _playerState;
     private CapsuleCollider _collider;
     private bool _finalState = false;
+    private bool _isDead;
 
     private int _skinIndex;
     private int _maskIndex;
     private int _weaponIndex;
     private EnemyWeapon _weaponObject;
-    private float _destroyTime = 5.0f;
+    private float _destroyTime = 12.0f;
     private float _smoothValue = 0.1f;
-    private Vector3 _smoothVector;
+    private Vector3 _smoothLookingVector;
+    private Vector3 _movingDownVector;
+    private float _movingDownSpeed = 0.005f;
 
     void Start()
     {
-        _smoothVector = new Vector3(1, 0, 1);
-           _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
+        _isDead = false;
+        _smoothLookingVector = new Vector3(1, 0, 1);
+        _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
         _playerState = _player.GetComponent<PlayerMovement>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<CapsuleCollider>();
-        
+        _enemyModelRigidbody = GetComponent<Rigidbody>();
         ActivateRagdoll(false);
         ChooseMySkin();
     }
@@ -51,9 +55,9 @@ public class Enemy : MonoBehaviour
         if (_isLooking)
         {
             _distance = Vector3.Distance(_player.position, transform.position);
-            _smoothVector = _player.position;
-            _smoothVector.y = transform.position.y;
-            transform.LookAt(_smoothVector);
+            _smoothLookingVector = _player.position;
+            _smoothLookingVector.y = transform.position.y;
+            transform.LookAt(_smoothLookingVector);
             _headTransform.LookAt(_player);
             /*
             if ((_distance <= _visibleDistance) &&( _distance > 2.0f ) )
@@ -80,7 +84,12 @@ public class Enemy : MonoBehaviour
                 //_animator.enabled = false;
             }
         }
-        
+        if (_isDead)
+        {
+            _movingDownVector = transform.position;
+            _movingDownVector.y -= _movingDownSpeed;
+            transform.position = _movingDownVector;
+        }        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -94,21 +103,40 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Staff"))
         {
             Debug.LogWarning("Атака прошла");
-
-            _animator.enabled = false;
-            
-            ForceVector.x = (transform.position.x - other.transform.position.x) * 20f;
-            ForceVector.z = 60f;
-            
-            ActivateRagdoll(true);
-            _weaponObject.OnEnemyDeath();
-            
-
-            //EnemyModelRigidbody.AddForce(ForceVector, ForceMode.Impulse);
-            EnemyModelRigidbody.AddForce(Vector3.left * _addForcePower, ForceMode.Impulse);
-            Destroy(gameObject, _destroyTime);
+            OnDeath(other);
 
         }
+    }
+
+    private void OnDeath(Collider other)
+    {
+        _animator.enabled = false;
+
+        ForceVector.x = (transform.position.x - other.transform.position.x) * 20f;
+        ForceVector.z = 60f;
+
+        ActivateRagdoll(true);
+        _weaponObject.OnEnemyDeath();
+
+
+        //EnemyModelRigidbody.AddForce(ForceVector, ForceMode.Impulse);
+        _enemyModelRigidbody.AddForce(Vector3.left * _addForcePower, ForceMode.Impulse);
+        Invoke("AfterDeath", 2.0f);
+    }
+
+    private void AfterDeath() 
+    {
+        _enemyModelRigidbody.isKinematic = false;
+        _enemyModelRigidbody.useGravity = false;
+        _isDead = true;
+        _collider.enabled = false;
+        var colliders = GetComponentsInChildren<Collider>();
+        foreach (var coll in colliders)
+        {
+            coll.enabled = false;
+        }
+        //ActivateRagdoll(false);
+        Destroy(gameObject, _destroyTime);
     }
 
     private void ChooseMySkin()

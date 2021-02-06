@@ -28,6 +28,8 @@ public class StickModel : MonoBehaviour
     private bool _wasThrowed;
     private bool _canFlyUp;
     private bool _canGetParts;
+    [SerializeField]private float _cooldownPartsCreating = 0.25f;
+    [SerializeField] private float _stickPowerChanging = 1f;
 
     public bool CanFlyUp
     {
@@ -104,8 +106,8 @@ public class StickModel : MonoBehaviour
                 {
                     CreateStaffParts();
                     _canGetParts = false;
-                    Invoke("CooldownStaffParts", 0.25f);
-                    _stickPower -= 1f;
+                    Invoke("CooldownStaffParts", _cooldownPartsCreating);
+                    _stickPower -= _stickPowerChanging;
                     ChangeLenghtOfStick();
                 }
                 _rotatingSpeed = MaxRotatingSpeed;
@@ -129,10 +131,10 @@ public class StickModel : MonoBehaviour
         GameObject _obj1 = Instantiate(_stickPart, _stickSpawner1.position, Quaternion.identity);
         GameObject _obj2 = Instantiate(_stickPart, _stickSpawner2.position, Quaternion.identity);
         
-        /*_obj1.GetComponent<Rigidbody>().AddTorque(new Vector3(0, -1, 0) * 50f, ForceMode.Impulse);
-        _obj1.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * 5f, ForceMode.Impulse);
-        _obj2.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 1, 0) * 5f, ForceMode.Impulse);
-        _obj2.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 50f, ForceMode.Impulse);*/
+        //_obj1.GetComponent<Rigidbody>().AddTorque(new Vector3(0, -1, 0) * 50f, ForceMode.Impulse);
+        _obj1.GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0) * 5f, ForceMode.Impulse);
+        //_obj2.GetComponent<Rigidbody>().AddTorque(new Vector3(0, 1, 0) * 5f, ForceMode.Impulse);
+        _obj2.GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0) * 50f, ForceMode.Impulse);
         Destroy(_obj1, 3.0f);
         Destroy(_obj2, 3.0f);
     }
