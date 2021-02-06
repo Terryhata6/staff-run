@@ -26,13 +26,16 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _sideDelay;
 	[SerializeField] private Animator _animator;
 	[SerializeField] private StickModel _staff;
+	[SerializeField] private float _deathHeight = -5f;
 
+	private MainController _mainController;
 	private float _attackCoolDown = 1.0f;
 	private bool _attackInCoolDown = false;
 	private Vector3 temp;
 
 	private void Start()
 	{
+		_mainController = FindObjectOfType<MainController>();
 		_currentState = CharacterState.Run;
 		_playerTransform = GetComponent<Transform>();
 		_animator = GetComponentInChildren<Animator>();
@@ -79,8 +82,9 @@ public class PlayerMovement : MonoBehaviour
 			default: _animator.SetBool(NameManager.RunState, true); break;
 		}
 
-		if (_playerTransform.position.y <= -5)
+		if (_playerTransform.position.y <= _deathHeight)
 		{
+			_mainController.EndLevel(false);
 			Debug.Log("Game Over");
 		}
 		//ограничение экрана
@@ -175,13 +179,6 @@ public class PlayerMovement : MonoBehaviour
 			_isRunning = false;
 		}
 
-	}
-	private void MoveForward()
-	{
-		/*_movingVector = _playerTransform.position;
-		_movingVector.z += MovingSpeed;
-		_playerTransform.position = _movingVector;*/
-		_playerTransform.Translate(Vector3.forward * 10f);
 	}
 
 	private void OnTriggerEnter(Collider _entryCollider)

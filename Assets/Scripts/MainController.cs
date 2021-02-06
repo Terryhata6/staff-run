@@ -61,6 +61,7 @@ public class MainController : MonoBehaviour
     public void EndLevel(bool isLevelComplete)
     {
         _uiController.EndGame(isLevelComplete, _levelNumber);
+        Time.timeScale = 0;
     }
 
     public int GetLevelNumber()
