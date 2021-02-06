@@ -3347,7 +3347,7 @@ MonoBehaviour:
   _headTransform: {fileID: 3366676327909488989}
   _isLooking: 1
   _box: {fileID: 987638757620703465}
-  _bodyBone: {fileID: 1587000600338463096}
+  _bodyBone: {fileID: 5173353956014242694}
   _bigCapsule: {fileID: 7004234308442423863}
   _smallCapsule: {fileID: 2462285974735228422}
   _cube: {fileID: 4642010034356126036}
@@ -3373,7 +3373,7 @@ MonoBehaviour:
   - {fileID: 7197115176245301322}
   _addForcePower: 0
   _animator: {fileID: 0}
-  EnemyModelRigidbody: {fileID: 2344797900760374549}
+  _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:
   m_ObjectHideFlags: 0

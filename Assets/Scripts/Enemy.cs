@@ -66,8 +66,7 @@ public class Enemy : MonoBehaviour
                 transform.rotation.SetLookRotation(vector);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion(vector), _smoothValue);
                 //Quaternion.Lerp(transform.rotation, Qu, _smoothValue)
-                //transform.LookAt(_player);               
-
+                //transform.LookAt(_player); 
             }
             */
         }
@@ -111,16 +110,14 @@ public class Enemy : MonoBehaviour
     private void OnDeath(Collider other)
     {
         _animator.enabled = false;
-
+        _bodyBone.GetComponent<Rigidbody>().AddForce(Vector3.left * _addForcePower * 1000, ForceMode.Impulse);
         ForceVector.x = (transform.position.x - other.transform.position.x) * 20f;
         ForceVector.z = 60f;
-
         ActivateRagdoll(true);
-        _weaponObject.OnEnemyDeath();
 
-
-        //EnemyModelRigidbody.AddForce(ForceVector, ForceMode.Impulse);
-        _enemyModelRigidbody.AddForce(Vector3.left * _addForcePower, ForceMode.Impulse);
+        _weaponObject.OnEnemyDeath();        
+        //_enemyModelRigidbody.AddForce(Vector3.left * _addForcePower*1000, ForceMode.Impulse);
+        _bodyBone.GetComponent<Rigidbody>().AddForce(Vector3.left * _addForcePower * 1000, ForceMode.Impulse);
         Invoke("AfterDeath", 2.0f);
     }
 
@@ -191,5 +188,6 @@ public class Enemy : MonoBehaviour
             bone.isKinematic = !state;
         }
         _animator.enabled = !state;
+        
     }
 }
