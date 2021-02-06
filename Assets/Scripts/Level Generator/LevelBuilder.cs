@@ -12,7 +12,7 @@ public class LevelBuilder : MonoBehaviour
 
         if (levelNumber < 0 || levelNumber >= _levels.Length)
         {
-            levelNumber = 0;
+            levelNumber = levelNumber % _levels.Length;
         }
 
         for (int i = 0; i < _levels[levelNumber].LevelParts.Length; i++)

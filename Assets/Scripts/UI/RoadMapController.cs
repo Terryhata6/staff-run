@@ -15,6 +15,11 @@ public class RoadMapController : MonoBehaviour
         if (levelsCount > _levels.Count)
         {
             _levelsCount = levelsCount % _levels.Count;
+
+            if (_levelsCount == 0)
+            {
+                _levelsCount = _levels.Count;
+            }
         }
         else
         {

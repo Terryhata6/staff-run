@@ -29,6 +29,8 @@ public class MainController : MonoBehaviour
 
     private void Start()
     {
+        if (_levelNumber == 0) _levelNumber = 1;
+
         _coinManager.SetCurrentCoins(_coins);
     }
 
@@ -50,7 +52,7 @@ public class MainController : MonoBehaviour
     public void NextLevel()
     {
         _levelNumber++;
-        _coins += _coinManager.GetCurrentCoin();
+        _coins = _coinManager.GetCurrentCoin();
         _coinManager.ResetCoin();
 
         SaveStats();
