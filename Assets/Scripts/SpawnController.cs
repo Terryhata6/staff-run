@@ -16,6 +16,7 @@ public class SpawnController : MonoBehaviour
     {
         SpawnEnemy();
         SpawnCollectables();
+        SpawnCoins();
     }
 
     private void Update()
@@ -30,14 +31,13 @@ public class SpawnController : MonoBehaviour
         {
             SpawnCollectables();
             _spawnedCollectables = true;
-        }
-        /*
-        if (_coinsSpawnPos[0] == null && _spawnedCoins == false)
+        }        
+        if(_coinsSpawnPos[0] == null/*&& _spawnedCoins == false*/)
         {
             SpawnCoins();
             _spawnedCoins = true;
         }
-        */
+        
     }
 
     private void SpawnEnemy()

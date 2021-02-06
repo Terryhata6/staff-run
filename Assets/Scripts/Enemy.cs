@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject[] _enemyesSkinVariations;
     [SerializeField] private GameObject[] _enemyesMaskVariations;
     [SerializeField] private GameObject[] _enemyesWeaponVariations;
+    [SerializeField] private bool _useSkinGeneration;
+    [SerializeField] private bool _useWeaponGeneration;
+    [SerializeField] private bool _useMaskGeneration;
     [SerializeField] private float _addForcePower;
     [SerializeField] private Animator _animator;
 
@@ -66,8 +69,7 @@ public class Enemy : MonoBehaviour
                 transform.rotation.SetLookRotation(vector);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion(vector), _smoothValue);
                 //Quaternion.Lerp(transform.rotation, Qu, _smoothValue)
-                //transform.LookAt(_player);               
-
+                //transform.LookAt(_player); 
             }
             */
         }
@@ -111,16 +113,14 @@ public class Enemy : MonoBehaviour
     private void OnDeath(Collider other)
     {
         _animator.enabled = false;
-
+        _bodyBone.GetComponent<Rigidbody>().AddForce(Vector3.left * _addForcePower * 1000, ForceMode.Impulse);
         ForceVector.x = (transform.position.x - other.transform.position.x) * 20f;
         ForceVector.z = 60f;
-
         ActivateRagdoll(true);
-        _weaponObject.OnEnemyDeath();
 
-
-        //EnemyModelRigidbody.AddForce(ForceVector, ForceMode.Impulse);
-        _enemyModelRigidbody.AddForce(Vector3.left * _addForcePower, ForceMode.Impulse);
+        _weaponObject.OnEnemyDeath();        
+        //_enemyModelRigidbody.AddForce(Vector3.left * _addForcePower*1000, ForceMode.Impulse);
+        _bodyBone.GetComponent<Rigidbody>().AddForce(Vector3.left * _addForcePower * 1000, ForceMode.Impulse);
         Invoke("AfterDeath", 2.0f);
     }
 
@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour
 
     private void ChooseMySkin()
     {
-        if (_enemyesSkinVariations[0] != null)
+        if (_enemyesSkinVariations[0] != null && _useSkinGeneration)
         {
 
             _skinIndex = Random.Range(0, _enemyesSkinVariations.Length);
@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour
             _enemyesSkinVariations[_skinIndex].SetActive(true);
         }
 
-        if (_enemyesMaskVariations[0] != null)
+        if (_enemyesMaskVariations[0] != null && _useMaskGeneration)
         {
             _maskIndex = Random.Range(0, _enemyesMaskVariations.Length);
             foreach (GameObject mask in _enemyesMaskVariations)
@@ -162,7 +162,7 @@ public class Enemy : MonoBehaviour
             _enemyesMaskVariations[_maskIndex].SetActive(true);
         }
 
-        if (_enemyesWeaponVariations[0] != null)
+        if (_enemyesWeaponVariations[0] != null && _useWeaponGeneration)
         {
             _weaponIndex = Random.Range(0, _enemyesWeaponVariations.Length);
             foreach (GameObject weapon in _enemyesWeaponVariations)
@@ -191,5 +191,6 @@ public class Enemy : MonoBehaviour
             bone.isKinematic = !state;
         }
         _animator.enabled = !state;
+        
     }
 }

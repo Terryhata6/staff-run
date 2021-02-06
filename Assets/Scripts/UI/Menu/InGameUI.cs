@@ -17,14 +17,16 @@ public class InGameUI : BaseMenu
 
     private void Start()
     {
+
         _uiController = transform.parent.GetComponentInChildren<UIController>();
+        _coinManager = FindObjectOfType<CoinManager>();
 
         _pauseButton.GetControl.onClick.AddListener(() => _uiController.PauseGame());
     }
 
     private void Update()
     {
-        //_coinsText.GetControl.text = $"{_coinManager.GetCurrentCoin()}";
+        _coinsText.GetControl.text = $"{_coinManager.GetCurrentCoin()}";
     }
 
     public override void Hide()

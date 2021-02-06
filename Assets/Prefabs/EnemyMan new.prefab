@@ -39,7 +39,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17041318974782035}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -255,7 +255,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645181942932681356}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -341,7 +341,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748961638259332279}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -690,7 +690,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016715020913129315}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -798,7 +798,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070994015037372004}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -909,7 +909,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102154046231812074}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -1051,7 +1051,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2222342127134604432}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -1520,7 +1520,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3014776194162209767}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -1602,6 +1602,7 @@ GameObject:
   - component: {fileID: 193914408965114939}
   - component: {fileID: 6199407424384805054}
   - component: {fileID: 7004234308442423863}
+  - component: {fileID: 1152415458491210255}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: EnemyInAttackRange
@@ -1679,11 +1680,24 @@ CapsuleCollider:
   m_GameObject: {fileID: 3350047460396078986}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.32
   m_Height: 6.3552346
   m_Direction: 1
   m_Center: {x: -0.0061870813, y: 0, z: 0.58537054}
+--- !u!65 &1152415458491210255
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350047460396078986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 6.9939795, z: 1.5769616}
+  m_Center: {x: 0, y: -0.31088784, z: 0.7462444}
 --- !u!64 &3631695937699542165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2136,7 +2150,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766492747540458771}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -2372,7 +2386,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5934515739926737474}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -2466,7 +2480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7706046648568384877
 Transform:
   m_ObjectHideFlags: 0
@@ -2489,7 +2503,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5945506536145782627}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -2805,7 +2819,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7110097967160223466}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -3005,7 +3019,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7660838039277678137}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -3105,7 +3119,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8237955220469508172}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -3347,7 +3361,7 @@ MonoBehaviour:
   _headTransform: {fileID: 3366676327909488989}
   _isLooking: 1
   _box: {fileID: 987638757620703465}
-  _bodyBone: {fileID: 1587000600338463096}
+  _bodyBone: {fileID: 5173353956014242694}
   _bigCapsule: {fileID: 7004234308442423863}
   _smallCapsule: {fileID: 2462285974735228422}
   _cube: {fileID: 4642010034356126036}
@@ -3371,9 +3385,12 @@ MonoBehaviour:
   - {fileID: 6648045167847653204}
   - {fileID: 1706451352600589142}
   - {fileID: 7197115176245301322}
+  _useSkinGeneration: 1
+  _useWeaponGeneration: 1
+  _useMaskGeneration: 1
   _addForcePower: 0
   _animator: {fileID: 0}
-  EnemyModelRigidbody: {fileID: 2344797900760374549}
+  _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3460,7 +3477,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8651639557390215256}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -3741,6 +3758,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7171517894989109047, guid: 366201ac5142189429f368e804d5f1cc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 366201ac5142189429f368e804d5f1cc, type: 3}
 --- !u!1 &9132764992471018570 stripped
@@ -3749,15 +3771,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 981771842040952131}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3531032924230725480 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4855078355937011157, guid: 366201ac5142189429f368e804d5f1cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 981771842040952131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5252675490687049305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 366201ac5142189429f368e804d5f1cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 981771842040952131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3531032924230725480 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4855078355937011157, guid: 366201ac5142189429f368e804d5f1cc,
     type: 3}
   m_PrefabInstance: {fileID: 981771842040952131}
   m_PrefabAsset: {fileID: 0}
@@ -3833,6 +3855,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -748633898190410371, guid: a04006274df152d43880d78afd34fd5d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2040055524731355677, guid: a04006274df152d43880d78afd34fd5d,
         type: 3}
       propertyPath: m_IsActive
@@ -3840,6 +3867,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a04006274df152d43880d78afd34fd5d, type: 3}
+--- !u!1 &7197115176245301322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a04006274df152d43880d78afd34fd5d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1207148355111864643}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6177271580020335193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: a04006274df152d43880d78afd34fd5d,
@@ -3849,12 +3882,6 @@ Transform:
 --- !u!1 &904973628469955422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2040055524731355677, guid: a04006274df152d43880d78afd34fd5d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1207148355111864643}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7197115176245301322 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a04006274df152d43880d78afd34fd5d,
     type: 3}
   m_PrefabInstance: {fileID: 1207148355111864643}
   m_PrefabAsset: {fileID: 0}
@@ -3928,6 +3955,11 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 5840c021a5b03464093ff9b9857bc14e,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791401855856497706, guid: 5840c021a5b03464093ff9b9857bc14e,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4022,6 +4054,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7058388024392528263, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9, type: 3}
 --- !u!1 &3557089826419488981 stripped
@@ -4030,15 +4067,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3634213612470732273}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8581018411971948267 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9,
-    type: 3}
-  m_PrefabInstance: {fileID: 3634213612470732273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4705908740371143928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 3634213612470732273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8581018411971948267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9,
     type: 3}
   m_PrefabInstance: {fileID: 3634213612470732273}
   m_PrefabAsset: {fileID: 0}
@@ -4114,8 +4151,19 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4787979316943344652, guid: e98dccd3f590a8f47984f0efabb0de4e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98dccd3f590a8f47984f0efabb0de4e, type: 3}
+--- !u!1 &5442734711577639378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3388711340325770125, guid: e98dccd3f590a8f47984f0efabb0de4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7246121791208385119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1706451352600589142 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: e98dccd3f590a8f47984f0efabb0de4e,
@@ -4125,12 +4173,6 @@ GameObject:
 --- !u!4 &2447092518432063813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: e98dccd3f590a8f47984f0efabb0de4e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7246121791208385119}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5442734711577639378 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3388711340325770125, guid: e98dccd3f590a8f47984f0efabb0de4e,
     type: 3}
   m_PrefabInstance: {fileID: 7246121791208385119}
   m_PrefabAsset: {fileID: 0}
