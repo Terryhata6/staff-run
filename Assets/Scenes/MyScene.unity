@@ -9851,6 +9851,7 @@ GameObject:
   - component: {fileID: 1839109285}
   - component: {fileID: 1839109287}
   - component: {fileID: 1839109288}
+  - component: {fileID: 1839109289}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -9907,7 +9908,7 @@ MonoBehaviour:
   _collectables: {fileID: 6708645853201507573, guid: cc0d3870615e8494d9283bf219135b52,
     type: 3}
   _collectablesSpawnPos: []
-  _coins: {fileID: 0}
+  _coins: {fileID: 4645896132651732632, guid: e878e529d6ccea040a2472f9c3a3a872, type: 3}
   _coinsSpawnPos: []
 --- !u!114 &1839109288
 MonoBehaviour:
@@ -9922,6 +9923,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelNumber: 0
+--- !u!114 &1839109289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839109284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8a45ae165d86044aeec1fd363fa400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1844105044
 PrefabInstance:
   m_ObjectHideFlags: 0
