@@ -6,23 +6,27 @@ public class FinalCameraTurner : MonoBehaviour
 {
     [SerializeField] CameraController _camera;
     [SerializeField] GameObject _cameraEndPosition;
-    // Start is called before the first frame update
+
+    private MainController _mainController;
+
     void Start()
     {
         _camera = FindObjectOfType<CameraController>();
+        _mainController = FindObjectOfType<MainController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("FinalTrigger"))
         {
             _camera.SetPursuedObject(_cameraEndPosition);
+            Invoke("CompleteLevel", 3f);
         }
+    }
+
+    private void CompleteLevel()
+    {
+        _mainController.EndLevel(true);
     }
 }
