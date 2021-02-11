@@ -168,7 +168,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e045a709455711e45838cd6da2b6d994, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,11 +206,13 @@ MonoBehaviour:
   _stickSpawner2: {fileID: 7131214177401889162}
   _stickPart: {fileID: 926244656829549186, guid: ea61f121468b8324c83581778c3c63b9,
     type: 3}
+  _stickPower: 0
   RotatingPositionOfStick: {x: 0, y: 0.3, z: 0}
   RotatingRotationOfStick: {x: 0, y: 0, z: 90}
-  AmountOfGettingBigger: 0.1
   RotatingSpeed: 10
   MaxRotatingSpeed: 20
+  _cooldownPartsCreating: 0.25
+  _stickPowerChanging: 1
 --- !u!136 &7492150936693381170
 CapsuleCollider:
   m_ObjectHideFlags: 0

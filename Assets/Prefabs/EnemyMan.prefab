@@ -3959,9 +3959,12 @@ MonoBehaviour:
   _enemyesSkinVariations: []
   _enemyesMaskVariations: []
   _enemyesWeaponVariations: []
+  _useSkinGeneration: 0
+  _useWeaponGeneration: 0
+  _useMaskGeneration: 0
   _addForcePower: 0
   _animator: {fileID: 0}
-  EnemyModelRigidbody: {fileID: 2344797900760374549}
+  _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:
   m_ObjectHideFlags: 0
