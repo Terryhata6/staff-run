@@ -4,7 +4,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _visibleDistance;
     [SerializeField] private Transform _headTransform;
-    [SerializeField] private bool _isLooking = true;
     [SerializeField] private GameObject _box;
     //[SerializeField] private GameObject _rigsNormal;
     //[SerializeField] private GameObject _rigsRagdoll;
@@ -20,6 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool _useMaskGeneration;
     [SerializeField] private float _addForcePower;
     [SerializeField] private Animator _animator;
+    [SerializeField] private float _targetDistance = 30;
 
     private Transform _player;
     private float _distance;
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     private CapsuleCollider _collider;
     private bool _finalState = false;
     private bool _isDead;
+    private bool _isActive;
 
     private int _skinIndex;
     private int _maskIndex;
@@ -42,56 +43,63 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        _isActive = false;
         _isDead = false;
         _smoothLookingVector = new Vector3(1, 0, 1);
         _player = GameObject.FindGameObjectWithTag(NameManager.Player).transform;
         _playerState = _player.GetComponent<PlayerMovement>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();        
         _collider = GetComponent<CapsuleCollider>();
         _enemyModelRigidbody = GetComponent<Rigidbody>();
         ActivateRagdoll(false);
         ChooseMySkin();
+        _animator.enabled = false;
+        CheckDistance();
     }
 
     void Update()
     {
-        if (_isLooking)
+        if (_isActive)
         {
-            _distance = Vector3.Distance(_player.position, transform.position);
-            _smoothLookingVector = _player.position;
-            _smoothLookingVector.y = transform.position.y;
-            transform.LookAt(_smoothLookingVector);
-            _headTransform.LookAt(_player);
-            /*
-            if ((_distance <= _visibleDistance) &&( _distance > 2.0f ) )
+            if (!_isDead)
+            {   
+                _smoothLookingVector = _player.position;
+                _smoothLookingVector.y = transform.position.y;
+                transform.LookAt(_smoothLookingVector);
+                _headTransform.LookAt(_player);                
+            }            
+            if (_isDead)
             {
-                vector = (_player.position-transform.position)/_distance;
-                transform.rotation.SetLookRotation(vector);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion(vector), _smoothValue);
-                //Quaternion.Lerp(transform.rotation, Qu, _smoothValue)
-                //transform.LookAt(_player); 
+                _movingDownVector = transform.position;
+                _movingDownVector.y -= _movingDownSpeed;
+                transform.position = _movingDownVector;
             }
-            */
         }
-        if (!_finalState) 
+        else if (!_isActive)
+        {
+            CheckDistance();
+        }
+        if (!_finalState)
         {
             if (_playerState.GetState() == CharacterState.Final)
             {
-                _isLooking = false;
                 _finalState = true;
-                //_collider.isTrigger = false;
-                //_box.SetActive(false);
-                //_rigsNormal.SetActive(false);
-                //_rigsRagdoll.SetActive(true);
-                //_animator.enabled = false;
+                if (!_animator.enabled && !_isDead)
+                {
+                    _animator.enabled = true;
+                }
             }
         }
-        if (_isDead)
+    }
+
+    private void CheckDistance()
+    {
+        _distance = (transform.position.z > _player.position.z) ? (transform.position.z - _player.position.z) : (_player.position.z - transform.position.z);
+        if (_distance < _targetDistance)
         {
-            _movingDownVector = transform.position;
-            _movingDownVector.y -= _movingDownSpeed;
-            transform.position = _movingDownVector;
-        }        
+            _isActive = true;
+            _animator.enabled = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
