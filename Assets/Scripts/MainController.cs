@@ -13,6 +13,8 @@ public class MainController : MonoBehaviour
     private CoinManager _coinManager;
     private int _coins;
 
+    private FinalController _finalController;
+
 
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class MainController : MonoBehaviour
         if (_levelNumber == 0) _levelNumber = 1;
 
         _coinManager.SetCurrentCoins(_coins);
+
+        _finalController = FindObjectOfType<FinalController>();
     }
 
     public void PauseGame()
@@ -62,7 +66,10 @@ public class MainController : MonoBehaviour
 
     public void EndLevel(bool isLevelComplete)
     {
-        _uiController.EndGame(isLevelComplete, _levelNumber);
+        int enemyCount = _finalController.CountEnemy();
+        int enemyCountKilled = _finalController.CountEnemyKilled();
+
+        _uiController.EndGame(isLevelComplete, _levelNumber, enemyCount, enemyCountKilled);
         Time.timeScale = 0;
     }
 

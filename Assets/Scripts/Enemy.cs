@@ -201,4 +201,9 @@ public class Enemy : MonoBehaviour
         _animator.enabled = !state;
         
     }
+
+    public bool IsDead()
+    {
+        return _isDead;
+    }
 }
