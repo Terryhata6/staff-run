@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   LevelParts:
-  - {fileID: 7991424562798306478, guid: 576e91289c8724148b2c0ccacbea1fb2, type: 3}
-  - {fileID: 7991424562798306478, guid: add1bb874d969aa44a9dd2ffd5c1dd45, type: 3}
-  - {fileID: 7991424562798306478, guid: f166c15f2c8ab9c40b3144ccfe77223e, type: 3}
-  - {fileID: 7991424562798306478, guid: 9d65859c2eaac1b459cfb3d6bfa3943e, type: 3}
+  - {fileID: 7991424562798306478, guid: 111ec4602c3470643a9bccbe6a0ff347, type: 3}
+  - {fileID: 7991424562798306478, guid: 50b86b43c7880594bb2692e75b3779e3, type: 3}
+  - {fileID: 7991424562798306478, guid: ea21c288e70839e43b701b21ff595dea, type: 3}
+  - {fileID: 7991424562798306478, guid: 78b0817e3f768ef49bb1a57f55d6ba73, type: 3}
   - {fileID: 374640749821330982, guid: c901ffbe119cfa44490194c64c7e3806, type: 3}
