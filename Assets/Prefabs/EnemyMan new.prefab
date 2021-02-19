@@ -3359,7 +3359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visibleDistance: 10
   _headTransform: {fileID: 3366676327909488989}
-  _isLooking: 1
   _box: {fileID: 987638757620703465}
   _bodyBone: {fileID: 5173353956014242694}
   _bigCapsule: {fileID: 7004234308442423863}
@@ -3390,6 +3389,7 @@ MonoBehaviour:
   _useMaskGeneration: 1
   _addForcePower: 0
   _animator: {fileID: 0}
+  _targetDistance: 30
   _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:

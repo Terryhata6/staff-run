@@ -11282,6 +11282,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1366933564}
     m_Modifications:
+    - target: {fileID: 283233734420300279, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761357253905954623, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492150934991293109, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7492150936693381171, guid: a1dc8803cb1163a42a9351ed97546272,
         type: 3}
       propertyPath: _stickPart
@@ -11362,6 +11377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainStaff
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492150936693381181, guid: a1dc8803cb1163a42a9351ed97546272,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1dc8803cb1163a42a9351ed97546272, type: 3}
