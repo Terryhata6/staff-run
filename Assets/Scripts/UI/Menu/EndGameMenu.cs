@@ -41,6 +41,8 @@ public class EndGameMenu : BaseMenu
         {
             _roadMap.gameObject.SetActive(false);
             _nextLevelButton.gameObject.SetActive(false);
+            _enemyCountText.gameObject.SetActive(false);
+            _strikeText.gameObject.SetActive(false);
             _retryButton.gameObject.SetActive(true);
         }
     }
@@ -54,6 +56,8 @@ public class EndGameMenu : BaseMenu
 
         _enemyCountText.gameObject.SetActive(true);
         _enemyCountText.GetControl.text = $"{enemyKilled}/{enemyCount}";
+
+        if (enemyKilled == enemyCount) _strikeText.gameObject.SetActive(true);
     }
 
     public override void Hide()
