@@ -1371,7 +1371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6538015005745693567
 Transform:
   m_ObjectHideFlags: 0
@@ -3950,7 +3950,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visibleDistance: 10
   _headTransform: {fileID: 0}
-  _isLooking: 1
   _box: {fileID: 987638757620703465}
   _bodyBone: {fileID: 0}
   _bigCapsule: {fileID: 0}
@@ -3964,6 +3963,7 @@ MonoBehaviour:
   _useMaskGeneration: 0
   _addForcePower: 0
   _animator: {fileID: 0}
+  _targetDistance: 30
   _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:
@@ -4028,7 +4028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4145462365930406253
 Transform:
   m_ObjectHideFlags: 0

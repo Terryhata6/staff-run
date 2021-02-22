@@ -160,7 +160,7 @@ public class StickModel : MonoBehaviour
             _rigidbody.isKinematic = false;
 
             transform.rotation = Quaternion.Euler(0, 0, 90);
-            _rigidbody.AddForce(new Vector3(0, 0.2f, 1) * 335f, ForceMode.Impulse);
+            _rigidbody.AddForce(new Vector3(0, 0.2f, 1) * 340f, ForceMode.Impulse);
             _rigidbody.AddTorque(new Vector3(0, -1, 0) * 505f, ForceMode.Impulse);
             _camera.SetPursuedObject(gameObject);
             _collider.isTrigger = false;

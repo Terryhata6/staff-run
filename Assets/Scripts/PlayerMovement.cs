@@ -32,9 +32,13 @@ public class PlayerMovement : MonoBehaviour
 	private float _attackCoolDown = 1.0f;
 	private bool _attackInCoolDown = false;
 	private Vector3 temp;
+	private Quaternion _rotationForward;
+	private float _oldSideDelay = 0;
 
 	private void Start()
 	{
+		_rotationForward = Quaternion.Euler(Vector3.forward);
+
 		_mainController = FindObjectOfType<MainController>();
 		_currentState = CharacterState.Run;
 		_playerTransform = GetComponent<Transform>();
@@ -73,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 			case CharacterState.Final:
 				{
-
+					_playerTransform.rotation = _rotationForward;
 					_animator.SetBool(NameManager.RunState, false);
 					_animator.SetBool(NameManager.FlyState, false);
 					_animator.SetBool(NameManager.FinalState, true);
@@ -97,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void OnFlyMovement()
 	{
+		
 		_movingVector = _playerTransform.position;
 		_movingVector.z += MovingSpeed;
 		if (_inputController.DragingStarted && _stickModel.CanFlyUp)
@@ -114,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		_movingVector = _playerTransform.position;
 		_movingVector.z += MovingSpeed;
+
 		if (_inputController.DragingStarted)
 		{
 			if (!_delayCounted)
@@ -125,13 +131,23 @@ public class PlayerMovement : MonoBehaviour
 			}
 			_movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;
 			_playerTransform.position = _movingVector;
+			_sideDelay = _startTouchPosition.x - _inputController.TouchPosition.x;
+
+
 		}
 		else
 		{
 			_delayCounted = false;
 		}
-		_sideDelay = _startTouchPosition.x - _inputController.TouchPosition.x;
-
+		
+		if (_sideDelay == _oldSideDelay)
+		{
+			if (_sideDelay > 0)
+				_sideDelay -= 0.03f;
+			else if (_sideDelay < 0)
+				_sideDelay += 0.03f;
+		}
+		_oldSideDelay = _sideDelay;
 		if (_sideDelay > 0)
 		{
 			_startTouchPosition.x -= 0.04f;
@@ -140,14 +156,30 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_startTouchPosition.x += 0.04f;
 		}
-
-		if (_sideDelay > 0.05f || _sideDelay < -0.05f)
+		_rotationVector = _playerTransform.rotation.eulerAngles;
+		_rotationVector.y = _sideDelay * RotationForce * -1f;
+		if (_rotationVector.y > 45)
 		{
-			_rotationVector = _playerTransform.rotation.eulerAngles;
-			_rotationVector.y = _sideDelay * RotationForce * -1f;
-			_playerTransform.rotation = Quaternion.Euler(_rotationVector);
+			_rotationVector.y = 45;
+			_sideDelay = -0.3f;
 		}
-		_playerTransform.position = _movingVector;
+		if (_rotationVector.y < -45)
+		{
+			_rotationVector.y = -45;
+			_sideDelay = 0.3f;
+		}	
+
+		if (_sideDelay < 0.03f && _sideDelay > -0.03f)
+		{
+			_playerTransform.rotation = _rotationForward;
+		}
+		else
+		{ 
+			_playerTransform.rotation = Quaternion.Euler(_rotationVector); 
+		}
+
+		_playerTransform.position = _movingVector; 
+		
 	}
 
 

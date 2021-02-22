@@ -398,7 +398,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5417011570042741497, guid: a04006274df152d43880d78afd34fd5d, type: 3}
 --- !u!1 &987638757620703465
@@ -1709,7 +1709,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7500734975900430286, guid: 366201ac5142189429f368e804d5f1cc, type: 3}
 --- !u!64 &5600947466554118609
@@ -1723,7 +1723,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7659490322416595514, guid: 5ae3e3e9e6ac857419d6c99fa52dadd9, type: 3}
 --- !u!1 &3719850238276619524
@@ -2344,7 +2344,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4271435425964990511, guid: e98dccd3f590a8f47984f0efabb0de4e, type: 3}
 --- !u!1 &5934515739926737474
@@ -3077,7 +3077,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4326748904886419336, guid: 5840c021a5b03464093ff9b9857bc14e, type: 3}
 --- !u!1 &8237955220469508172
@@ -3359,7 +3359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visibleDistance: 10
   _headTransform: {fileID: 3366676327909488989}
-  _isLooking: 1
   _box: {fileID: 987638757620703465}
   _bodyBone: {fileID: 5173353956014242694}
   _bigCapsule: {fileID: 7004234308442423863}
@@ -3390,6 +3389,7 @@ MonoBehaviour:
   _useMaskGeneration: 1
   _addForcePower: 0
   _animator: {fileID: 0}
+  _targetDistance: 30
   _enemyModelRigidbody: {fileID: 0}
 --- !u!54 &2344797900760374549
 Rigidbody:
