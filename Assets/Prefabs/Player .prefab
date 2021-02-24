@@ -151,6 +151,7 @@ MonoBehaviour:
   _sideDelay: 0
   _animator: {fileID: 0}
   _staff: {fileID: 0}
+  _deathHeight: -5
 --- !u!65 &4799376462253701479
 BoxCollider:
   m_ObjectHideFlags: 0
