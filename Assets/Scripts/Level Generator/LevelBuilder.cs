@@ -15,6 +15,7 @@ public class LevelBuilder : MonoBehaviour
             levelNumber = levelNumber % _levels.Length;
         }
 
+        Debug.Log($"Level Number:{levelNumber} ");
         for (int i = 0; i < _levels[levelNumber].LevelParts.Length; i++)
         {
             levelParts.Add(Instantiate(_levels[levelNumber].LevelParts[i]));
