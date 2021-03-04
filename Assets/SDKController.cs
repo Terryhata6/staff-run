@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using GameAnalyticsSDK;
+using GameAnalyticsSDK;
 using Facebook.Unity;
 
 public class SDKController : MonoBehaviour
@@ -20,7 +20,7 @@ public class SDKController : MonoBehaviour
 
     private void Start()
     {
-       //GameAnalytics.Initialize();
+       GameAnalytics.Initialize();
     }
 
     private void InitCallback()

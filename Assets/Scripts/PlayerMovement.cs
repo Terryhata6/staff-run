@@ -10,11 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField] private InputController _inputController;
 	[SerializeField] private StickModel _stickModel;
-	[SerializeField] private Transform _playerTransform;
-	[SerializeField] private Rigidbody _playerRigidbody;
+	private Transform _playerTransform;
+	private Rigidbody _playerRigidbody;
 	[SerializeField] public CharacterState _currentState;
-	[SerializeField] private Vector3 _delay;
-	[SerializeField] private Vector3 _startPosition;
+	private Vector3 _delay;
+	private Vector3 _startPosition;
 	[SerializeField] private Vector3 _startTouchPosition;
 	[SerializeField] private Vector3 _movingVector;
 	[SerializeField] private Vector3 _rotationVector;
@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _sliderSensetivity = 3.0f;
 	[SerializeField] private float _sideDelay;
 	[SerializeField] private Animator _animator;
-	[SerializeField] private StickModel _staff;
 	[SerializeField] private float _deathHeight = -5f;
 
 	private MainController _mainController;
@@ -34,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 	private Vector3 temp;
 	private Quaternion _rotationForward;
 	private float _oldSideDelay = 0;
+	private Vector3 _oldControllerPosition;
+	private float _sideDelaysDifference;
 
 	private void Start()
 	{
@@ -62,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			case CharacterState.Run:
 				{
-
+					_playerTransform.rotation = _rotationForward;
 					_animator.SetBool(NameManager.RunState, true);
 					_animator.SetBool(NameManager.FlyState, false);
 					OnRunMovement();
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 				}
 			case CharacterState.Fly:
 				{
+					_playerTransform.rotation = _rotationForward;
 					_animator.SetBool(NameManager.RunState, false);
 					_animator.SetBool(NameManager.FlyState, true);
 					OnFlyMovement();
@@ -120,58 +122,82 @@ public class PlayerMovement : MonoBehaviour
 		_movingVector = _playerTransform.position;
 		_movingVector.z += MovingSpeed;
 
+		if (_rotationVector.y > 30)
+		{
+			_rotationVector.y = 30;
+			_sideDelay = -0.07f;
+		}
+		if (_rotationVector.y < -30)
+		{
+			_rotationVector.y = -30;
+			_sideDelay = 0.07f;
+		}
+
 		if (_inputController.DragingStarted)
 		{
 			if (!_delayCounted)
 			{
 				_delay = _inputController.TouchPosition;
 				_startTouchPosition = _inputController.TouchPosition;
+				_oldControllerPosition = _inputController.TouchPosition;
 				_startPosition = _playerTransform.position;
 				_delayCounted = true;
 			}
 			_movingVector.x = _startPosition.x + (_inputController.TouchPosition.x - _delay.x) * _sliderSensetivity;
 			_playerTransform.position = _movingVector;
 			_sideDelay = _startTouchPosition.x - _inputController.TouchPosition.x;
-
-
+			//_sideDelay = _oldControllerPosition.x - _inputController.TouchPosition.x;
+			_oldControllerPosition.x = _inputController.TouchPosition.x;
 		}
 		else
 		{
 			_delayCounted = false;
 		}
-		
-		if (_sideDelay == _oldSideDelay)
+
+
+		if (_sideDelay > _oldSideDelay)
 		{
-			if (_sideDelay > 0)
-				_sideDelay -= 0.03f;
-			else if (_sideDelay < 0)
-				_sideDelay += 0.03f;
+			_sideDelaysDifference = _sideDelay - _oldSideDelay;
 		}
-		_oldSideDelay = _sideDelay;
-		if (_sideDelay > 0)
+		else
 		{
-			_startTouchPosition.x -= 0.04f;
-		}
-		else if (_sideDelay < 0)
-		{
-			_startTouchPosition.x += 0.04f;
-		}
-		_rotationVector = _playerTransform.rotation.eulerAngles;
-		_rotationVector.y = _sideDelay * RotationForce * -1f;
-		if (_rotationVector.y > 45)
-		{
-			_rotationVector.y = 45;
-			_sideDelay = -0.3f;
-		}
-		if (_rotationVector.y < -45)
-		{
-			_rotationVector.y = -45;
-			_sideDelay = 0.3f;
+			_sideDelaysDifference =_oldSideDelay - _sideDelay;
 		}	
 
-		if (_sideDelay < 0.03f && _sideDelay > -0.03f)
+
+		if (_sideDelaysDifference < 0.005)
+		{
+			if (_sideDelay > 0)
+			{
+				_sideDelay -= 0.01f;
+				_startTouchPosition.x -= 0.01f;
+			}
+			else if (_sideDelay < 0)
+			{
+				_sideDelay += 0.01f;	
+				_startTouchPosition.x += 0.01f;
+			}
+
+		}
+		_oldSideDelay = _sideDelay;
+		
+		
+		_rotationVector = _playerTransform.rotation.eulerAngles;
+		_rotationVector.y = _sideDelay * RotationForce * -1f;
+		
+		/*
+		if (_sideDelay >= 0.03)
+		{
+			
+		}
+		else if (_sideDelay <= -0.03)
+		{
+			
+		}*/
+		if (_sideDelay < 0.03f && _sideDelay > -0.03f && !_inputController.DragingStarted)
 		{
 			_playerTransform.rotation = _rotationForward;
+			_sideDelay = 0;
 		}
 		else
 		{ 
