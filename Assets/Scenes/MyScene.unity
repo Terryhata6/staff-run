@@ -10893,7 +10893,7 @@ PrefabInstance:
     - target: {fileID: 1335294212747011268, guid: d37bbb8cee4736c469706540629d5c7f,
         type: 3}
       propertyPath: _sliderSensetivity
-      value: 2
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1335294212747011268, guid: d37bbb8cee4736c469706540629d5c7f,
         type: 3}

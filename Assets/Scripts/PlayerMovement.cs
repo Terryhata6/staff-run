@@ -122,16 +122,7 @@ public class PlayerMovement : MonoBehaviour
 		_movingVector = _playerTransform.position;
 		_movingVector.z += MovingSpeed;
 
-		if (_rotationVector.y > 30)
-		{
-			_rotationVector.y = 30;
-			_sideDelay = -0.07f;
-		}
-		if (_rotationVector.y < -30)
-		{
-			_rotationVector.y = -30;
-			_sideDelay = 0.07f;
-		}
+		
 
 		if (_inputController.DragingStarted)
 		{
@@ -181,10 +172,21 @@ public class PlayerMovement : MonoBehaviour
 		}
 		_oldSideDelay = _sideDelay;
 		
-		
+
+
 		_rotationVector = _playerTransform.rotation.eulerAngles;
 		_rotationVector.y = _sideDelay * RotationForce * -1f;
-		
+
+		if (_rotationVector.y > 30)
+		{
+			_rotationVector.y = 30;
+			_sideDelay = -0.07f;
+		}
+		if (_rotationVector.y < -30)
+		{
+			_rotationVector.y = -30;
+			_sideDelay = 0.07f;
+		}
 		/*
 		if (_sideDelay >= 0.03)
 		{
