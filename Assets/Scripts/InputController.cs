@@ -23,27 +23,6 @@ public class InputController : MonoBehaviour
 			if (Input.touchCount > 0)
 			{
 				_touch = Input.GetTouch(0);
-				
-				if (_touch.phase == TouchPhase.Began)
-				{
-					
-					DragingStarted = true;
-					if (!_oneTouchRota)
-					{
-						OnTouch = true;
-						_oneTouchRota = true;
-					}
-					else
-					{
-						OnTouch = false;
-					}
-					TouchPosition = CameraForInput.ScreenToWorldPoint(_touch.position);
-				}
-				else if (_touch.phase == TouchPhase.Moved)
-				{
-					TouchPosition = CameraForInput.ScreenToWorldPoint(_touch.position);
-				}
-				
 				switch (_touch.phase)
 				{
 					case TouchPhase.Began:

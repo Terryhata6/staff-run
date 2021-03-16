@@ -98,7 +98,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 122
   m_CollisionDetection: 3
 --- !u!136 &1335294212747011272
 CapsuleCollider:
@@ -133,11 +133,7 @@ MonoBehaviour:
   RotationForce: 150
   _inputController: {fileID: 0}
   _stickModel: {fileID: 0}
-  _playerTransform: {fileID: 0}
-  _playerRigidbody: {fileID: 0}
   _currentState: 0
-  _delay: {x: 0, y: 0, z: 0}
-  _startPosition: {x: 0, y: 0, z: 0}
   _startTouchPosition: {x: 0, y: 0, z: 0}
   _movingVector: {x: 0, y: 0, z: 0}
   _rotationVector: {x: 0, y: 0, z: 0}
@@ -149,27 +145,7 @@ MonoBehaviour:
   _sliderSensetivity: 3
   _sideDelay: 0
   _animator: {fileID: 0}
-  _staff: {fileID: 0}
   _deathHeight: -5
---- !u!95 &1335294213080902484
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7036318156510713361}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 876eb5f2b1b526944b4fd1673ee7b501, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &1335294213383959467
 Animator:
   serializedVersion: 3
@@ -203,6 +179,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staff: {fileID: 1335294213476614981}
   _player: {fileID: 1335294212747011268}
+--- !u!95 &1335294213080902484
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036318156510713361}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 876eb5f2b1b526944b4fd1673ee7b501, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1335294213654089496
 PrefabInstance:
   m_ObjectHideFlags: 0
