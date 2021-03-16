@@ -36,15 +36,17 @@ public class PlayerMovement : MonoBehaviour
     private float _oldSideDelay = 0;
     private Vector3 _oldControllerPosition;
     private float _sideDelaysDifference;
-
     private bool _touchBegan = false;
     private bool _touchCancelled = false;
     private bool _touchMoved = false;
     private bool _touchEnded = false;
     private bool _touchStationary = false;
-
     private Vector2 _touchDelta2D = Vector2.zero;
     private Vector2 _touchDeltaNormalized = Vector2.zero;
+
+    private float _balanceModifier;
+    [SerializeField]private GameObject _playerBalancingObject;
+    private float _balancingRotateValue;
 
     private void Start()
     {
@@ -109,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             case CharacterState.Balancing:
                 {
-                    
+                    OnBalancingMovement();
                     break;
                 }
 
@@ -122,12 +124,54 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Game Over");
         }
     }
-
     private void OnBalancingMovement()
-    { 
-    
+    {
+        #region RandMachine for _balancingRotateValue
+        _balancingRotateValue = 0;
+        _balanceModifier = Random.Range(1, 101);
+        if (_balanceModifier > 20 && _balanceModifier <= 40)
+        {
+            _balancingRotateValue = 1;
+        }
+        if (_balanceModifier > 40 && _balanceModifier <= 60)
+        {
+            _balancingRotateValue = -1;
+        }
+        if (_balanceModifier > 60 && _balanceModifier <= 75)
+        {
+            _balancingRotateValue = 2;
+        }
+        if (_balanceModifier > 75 && _balanceModifier <= 90)
+        {
+            _balancingRotateValue = -2;
+        }
+        if (_balanceModifier > 90 && _balanceModifier <= 94)
+        {
+            _balancingRotateValue = 3;
+        }
+        if (_balanceModifier > 95 && _balanceModifier <= 100)
+        {
+            _balancingRotateValue = -3;
+        }
+        #endregion
+        if (_touchBegan)
+        {
+            _startPosition = _playerTransform.position;
+        }
+        if (_touchMoved || _touchStationary)
+        {
+            if (_touchDelta2D.x - _startTouchPosition.x > 0)
+            {
+                _balancingRotateValue -= 4;
+            }
+            else if (_touchDelta2D.x - _startTouchPosition.x < 0)
+            {
+                _balancingRotateValue += 4;
+            }
+        }
+        _playerBalancingObject.transform.Rotate(0, 0, _balancingRotateValue*0.5f);
+        _playerTransform.position += Vector3.forward * MovingSpeed * Time.deltaTime;
     }
-
     private void OnHurricaneMovement()
     {
         _movingVector = Vector3.zero;
@@ -153,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector3.forward * _magnitude * 0.01f * 5 * Time.deltaTime);
 
         }
-        _playerTransform.position += Vector3.forward * Time.deltaTime;
+        //_playerTransform.position += Vector3.forward * MovingSpeed * Time.deltaTime;
     }
     private void OnFlyMovement()
     {
@@ -199,6 +243,7 @@ public class PlayerMovement : MonoBehaviour
             }
             //_movingVector.x = _startPosition.x + (_touchDeltaNormalized.x - _startTouchPosition.x);// * _sliderSensetivity;
             _rotationVector.y = _touchDelta2D.x - _startTouchPosition.x;
+            
             if (_rotationVector.y > 30f)
             {
                 _rotationVector.y = 30f;
@@ -258,9 +303,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (state == CharacterState.Final && _currentState != state)
         {
-
             _currentState = state;
             _isRunning = false;
+        }
+        else if (state == CharacterState.Hurricane && _currentState != state)
+        {
+            _currentState = state;
+        }
+        else if (state == CharacterState.Balancing && _currentState != state)
+        {
+            _currentState = state;
         }
 
     }
