@@ -9456,6 +9456,7 @@ GameObject:
   - component: {fileID: 1839109288}
   - component: {fileID: 1839109289}
   - component: {fileID: 1839109290}
+  - component: {fileID: 1839109291}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -9479,7 +9480,7 @@ MonoBehaviour:
   DragingStarted: 0
   OnTouch: 0
   _oneTouchRota: 0
-  UseMouse: 1
+  UseMouse: 0
   CameraForInput: {fileID: 518824836}
 --- !u!4 &1839109286
 Transform:
@@ -9549,6 +9550,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a55b02409995f2140a4060876fb0494b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1839109291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839109284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb36327889370042b262aab6774fd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1844105044
@@ -10893,7 +10906,7 @@ PrefabInstance:
     - target: {fileID: 1335294212747011268, guid: d37bbb8cee4736c469706540629d5c7f,
         type: 3}
       propertyPath: _sliderSensetivity
-      value: 0.8
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1335294212747011268, guid: d37bbb8cee4736c469706540629d5c7f,
         type: 3}

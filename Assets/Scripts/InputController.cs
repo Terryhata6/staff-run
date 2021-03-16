@@ -9,11 +9,10 @@ public class InputController : MonoBehaviour
 	public bool _oneTouchRota = false;
 	public bool UseMouse = false;
 	public Camera CameraForInput;
-	private Touch touch;
+	private Touch _touch;
 
 	private void Start()
 	{
-		//CameraForInput = FindObjectOfType<Camera>();
 		TouchPosition = new Vector3(0, 0);
 	}
 
@@ -23,9 +22,11 @@ public class InputController : MonoBehaviour
 		{
 			if (Input.touchCount > 0)
 			{
-				touch = Input.GetTouch(0);
-				if (touch.phase == TouchPhase.Began)
+				_touch = Input.GetTouch(0);
+				
+				if (_touch.phase == TouchPhase.Began)
 				{
+					
 					DragingStarted = true;
 					if (!_oneTouchRota)
 					{
@@ -36,12 +37,44 @@ public class InputController : MonoBehaviour
 					{
 						OnTouch = false;
 					}
-					TouchPosition = CameraForInput.ScreenToWorldPoint(touch.position);
+					TouchPosition = CameraForInput.ScreenToWorldPoint(_touch.position);
 				}
-				else if (touch.phase == TouchPhase.Moved)
+				else if (_touch.phase == TouchPhase.Moved)
 				{
-					TouchPosition = CameraForInput.ScreenToWorldPoint(touch.position);
+					TouchPosition = CameraForInput.ScreenToWorldPoint(_touch.position);
 				}
+				
+				switch (_touch.phase)
+				{
+					case TouchPhase.Began:
+						{
+							GameEvents.current.TouchBeganEvent(_touch.position);							
+							break;
+						}
+					case TouchPhase.Canceled:
+						{
+							GameEvents.current.TouchCancelledEvent();
+							break;
+						}
+					case TouchPhase.Moved:
+						{
+							GameEvents.current.TouchMovedEvent(_touch.position);
+							break;
+						}
+					case TouchPhase.Ended:
+						{
+							GameEvents.current.TouchEndedEvent();
+							break;
+						}
+					case TouchPhase.Stationary:
+						{
+							GameEvents.current.TouchStationaryEvent(_touch.position);
+							break;
+						}
+					default:break;
+				}
+
+
 			}
 			else
 			{
