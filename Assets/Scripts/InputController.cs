@@ -13,7 +13,6 @@ public class InputController : MonoBehaviour
 
 	private void Start()
 	{
-		//CameraForInput = FindObjectOfType<Camera>();
 		TouchPosition = new Vector3(0, 0);
 	}
 
