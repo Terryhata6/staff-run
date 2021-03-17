@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _sideDelay;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _deathHeight = -5f;
-
+    private Vector2 _movingVector2D;
+    private Vector3 _touchDelta3D;
+    private float _magnitude;
     private MainController _mainController;
     private float _attackCoolDown = 1.0f;
     private bool _attackInCoolDown = false;
@@ -34,18 +36,25 @@ public class PlayerMovement : MonoBehaviour
     private float _oldSideDelay = 0;
     private Vector3 _oldControllerPosition;
     private float _sideDelaysDifference;
-
     private bool _touchBegan = false;
     private bool _touchCancelled = false;
     private bool _touchMoved = false;
     private bool _touchEnded = false;
     private bool _touchStationary = false;
-
-    private Vector2 _touchDelta = Vector2.zero;
+    private Vector2 _touchDelta2D = Vector2.zero;
     private Vector2 _touchDeltaNormalized = Vector2.zero;
+    private GameObject _nextCyllinder;
+    public GameObject NextCyllinder
+    {
+        get => _nextCyllinder;
+        set => _nextCyllinder = value;
+    }
+    private float _balanceModifier;
+    [SerializeField]private GameObject _playerBalancingObject;
+    private float _balancingRotateValue;
 
     private void Start()
-    {        
+    {
         _mainController = FindObjectOfType<MainController>();
         _currentState = CharacterState.Run;
         _playerTransform = GetComponent<Transform>();
@@ -75,14 +84,18 @@ public class PlayerMovement : MonoBehaviour
             case CharacterState.Run:
                 {
                     _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _animator.SetBool("BalancingBool", false);
+                    _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, true);
-                    _animator.SetBool(NameManager.FlyState, false);                    
+                    _animator.SetBool(NameManager.FlyState, false);
                     OnRunMovement();
                     break;
                 }
             case CharacterState.Fly:
                 {
                     _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _animator.SetBool("BalancingBool", false);
+                    _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, false);
                     _animator.SetBool(NameManager.FlyState, true);
                     OnFlyMovement();
@@ -91,12 +104,44 @@ public class PlayerMovement : MonoBehaviour
             case CharacterState.Final:
                 {
                     _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _animator.SetBool("BalancingBool", false);
+                    _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, false);
                     _animator.SetBool(NameManager.FlyState, false);
                     _animator.SetBool(NameManager.FinalState, true);
                     break;
                 }
-            default: _animator.SetBool(NameManager.RunState, true); break;
+            case CharacterState.Hurricane:
+                {
+                    _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _animator.SetBool("Hurricane", true);
+                    _animator.SetBool("BalancingBool", false);
+                    _animator.SetBool(NameManager.RunState, false);
+                    _animator.SetBool(NameManager.FlyState, false);
+                    _animator.SetBool(NameManager.FinalState, false);
+                    OnHurricaneMovement();
+                    break;
+                }
+            case CharacterState.Balancing:
+                {
+                    _animator.SetBool("Hurricane", false);
+                    _animator.SetBool("BalancingBool", true);
+                    _animator.SetBool(NameManager.RunState, false);
+                    _animator.SetBool(NameManager.FlyState, false);
+                    _animator.SetBool(NameManager.FinalState, false);
+                    OnBalancingMovement();
+                    break;
+                }
+            case CharacterState.PrepareToBalance:
+                {
+                    //transform.position = _nextCyllinder.transform.position;                    
+                    ChangePlayerState(CharacterState.Balancing);
+                    break;
+                }
+            default: 
+                { 
+                    _animator.SetBool(NameManager.RunState, true); break;
+                } 
         }
 
         if (_playerTransform.position.y <= _deathHeight)
@@ -104,14 +149,83 @@ public class PlayerMovement : MonoBehaviour
             _mainController.EndLevel(false);
             Debug.Log("Game Over");
         }
-        //ограничение экрана
-        /*_screenWall.x = Mathf.Clamp(transform.position.x, _minScreenPosition.x, _maxScreenPosition.x);
-		_screenWall.y = Mathf.Clamp(transform.position.y, _minScreenPosition.y, _maxScreenPosition.y);
-		transform.position = _screenWall;*/
     }
+    private void OnBalancingMovement()
+    {
+        #region RandMachine for _balancingRotateValue
+        _balancingRotateValue = 0;
+        _balanceModifier = Random.Range(1, 101);
+        if (_balanceModifier > 20 && _balanceModifier <= 40)
+        {
+            _balancingRotateValue = 1;
+        }
+        if (_balanceModifier > 40 && _balanceModifier <= 60)
+        {
+            _balancingRotateValue = -1;
+        }
+        if (_balanceModifier > 60 && _balanceModifier <= 75)
+        {
+            _balancingRotateValue = 2;
+        }
+        if (_balanceModifier > 75 && _balanceModifier <= 90)
+        {
+            _balancingRotateValue = -2;
+        }
+        if (_balanceModifier > 90 && _balanceModifier <= 94)
+        {
+            _balancingRotateValue = 3;
+        }
+        if (_balanceModifier > 95 && _balanceModifier <= 100)
+        {
+            _balancingRotateValue = -3;
+        }
+        #endregion
+        if (_touchBegan)
+        {
+            _startPosition = _playerTransform.position;
+        }
+        if (_touchMoved || _touchStationary)
+        {
+            if (_touchDelta2D.x - _startTouchPosition.x > 0)
+            {
+                _balancingRotateValue -= 4;
+            }
+            else if (_touchDelta2D.x - _startTouchPosition.x < 0)
+            {
+                _balancingRotateValue += 4;
+            }
+        }
+        _playerBalancingObject.transform.Rotate(0, 0, _balancingRotateValue * 0.3f);
+        _playerTransform.position += Vector3.forward * MovingSpeed * 33f * Time.deltaTime;
+    }
+    private void OnHurricaneMovement()
+    {
+        _movingVector = Vector3.zero;
+        if (_touchBegan)
+        {
+            _startPosition = _playerTransform.position;
+        }
+        if (_touchMoved || _touchStationary)
+        {
+            //_movingVector.z += MovingSpeed;
+            /*
+            _movingVector.x = _playerTransform.position.x +_touchDelta2D.normalized.x *Time.deltaTime;
+            _movingVector.y = 0;
+            _movingVector.z = _playerTransform.position.z +_touchDelta2D.normalized.y *Time.deltaTime;
+            */
+            _movingVector = _touchDelta3D - _startTouchPosition;
+            _magnitude = _movingVector.magnitude;
+            if (_magnitude > 100)
+            {
+                _magnitude = 100.0f;
+            }
+            transform.rotation = Quaternion.LookRotation(_movingVector, Vector3.up);
+            transform.Translate(Vector3.forward * _magnitude * 0.01f * 5 * Time.deltaTime);
 
-
-
+        }
+        _playerBalancingObject.transform.Rotate(0f,15f,0f);
+        //_playerTransform.position += Vector3.forward * MovingSpeed * Time.deltaTime;
+    }
     private void OnFlyMovement()
     {
         _movingVector = _playerTransform.position;
@@ -146,16 +260,17 @@ public class PlayerMovement : MonoBehaviour
         if (_touchMoved)
         {
             //_movingVector.x = _playerTransform.position.x + _touchDelta.x;
-            if (_touchDelta.x - _startTouchPosition.x > 0)
+            if (_touchDelta2D.x - _startTouchPosition.x > 0)
             {
                 _movingVector.x += _sliderSensetivity;
             }
-            else if (_touchDelta.x - _startTouchPosition.x < 0)
+            else if (_touchDelta2D.x - _startTouchPosition.x < 0)
             {
                 _movingVector.x -= _sliderSensetivity;
             }
             //_movingVector.x = _startPosition.x + (_touchDeltaNormalized.x - _startTouchPosition.x);// * _sliderSensetivity;
-            _rotationVector.y = _touchDelta.x - _startTouchPosition.x;
+            _rotationVector.y = _touchDelta2D.x - _startTouchPosition.x;
+            
             if (_rotationVector.y > 30f)
             {
                 _rotationVector.y = 30f;
@@ -173,8 +288,12 @@ public class PlayerMovement : MonoBehaviour
                 _rotationVector.y -= 1.0f;
             }
         }
+        if (_touchStationary)
+        {
+            _startTouchPosition = _touchDelta2D;
+        }
         if (_touchEnded || _touchStationary /*|| (!_touchBegan && !_touchCancelled && !_touchEnded && !_touchMoved && !_touchStationary )*/)
-        {           
+        {
             if (_rotationVector.y >= -30f && _rotationVector.y < 0f)
             {
                 _rotationVector.y += 2.0f;
@@ -191,29 +310,49 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangePlayerState(CharacterState state)
     {
-        Debug.Log("ChangePalyerState");
-
+        
+        _playerBalancingObject.transform.rotation = Quaternion.LookRotation(Vector3.forward);
         if (state == CharacterState.Fly && _currentState != state)
         {
+            _stickModel.StaffAttackEnd();
             _animator.applyRootMotion = false;
             _currentState = state;
             _isRunning = false;
             _playerRigidbody.isKinematic = true;
-            _stickModel.ChangePositionOfStick();
+            _stickModel.ChangePositionOfStick(StickStateEnum.Fly);
+            GameEvents.current.FlyFirstEntryEvent();
         }
         else if (state == CharacterState.Run && _currentState != state)
         {
+            _stickModel.StaffAttackEnd();
             _animator.applyRootMotion = false;
             _currentState = state;
             _isRunning = true;
             _playerRigidbody.isKinematic = false;
-            _stickModel.ChangePositionOfStick();
+            _stickModel.ChangePositionOfStick(StickStateEnum.Run);
         }
         else if (state == CharacterState.Final && _currentState != state)
         {
-
             _currentState = state;
             _isRunning = false;
+        }
+        else if (state == CharacterState.Hurricane && _currentState != state)
+        {
+            _stickModel.StaffAttackStart();
+            _currentState = state;
+            _stickModel.ChangePositionOfStick(StickStateEnum.Hurricane);
+
+        }
+        else if (state == CharacterState.Balancing && _currentState != state)
+        {
+            _stickModel.StaffAttackEnd();
+            _currentState = state;
+            _stickModel.ChangePositionOfStick(StickStateEnum.Balancing);
+        }
+        else if (state == CharacterState.PrepareToBalance && _currentState != state)
+        {
+            _stickModel.StaffAttackEnd();
+            _currentState = state;
         }
 
     }
@@ -249,7 +388,11 @@ public class PlayerMovement : MonoBehaviour
         _startTouchPosition.x = position.x;
         _startTouchPosition.y = 0;
         _startTouchPosition.z = position.y;
-        _touchDelta = position;
+        _touchDelta2D = position;
+        _touchDelta3D.x = _touchDelta2D.x;
+        _touchDelta3D.y = 0;
+        _touchDelta3D.z = _touchDelta2D.y;
+
         _touchDeltaNormalized = position.normalized;
         _touchBegan = true;
         _touchCancelled = false;
@@ -257,8 +400,6 @@ public class PlayerMovement : MonoBehaviour
         _touchEnded = false;
         _touchStationary = false;
     }
-
-
     public void OnTouchPhaseCancelled()
     {
         _touchBegan = false;
@@ -267,10 +408,12 @@ public class PlayerMovement : MonoBehaviour
         _touchEnded = false;
         _touchStationary = false;
     }
-
     public void OnTouchPhaseMoved(Vector2 delta)
     {
-        _touchDelta = delta;
+        _touchDelta2D = delta;
+        _touchDelta3D.x = delta.x;
+        _touchDelta3D.y = 0;
+        _touchDelta3D.z = delta.y;
         _touchDeltaNormalized = delta.normalized;
         _touchBegan = false;
         _touchCancelled = false;
@@ -278,24 +421,27 @@ public class PlayerMovement : MonoBehaviour
         _touchEnded = false;
         _touchStationary = false;
     }
-
     public void OnTouchPhaseEnded()
     {
+        _touchDelta2D = Vector2.zero;
         _touchBegan = false;
         _touchCancelled = false;
         _touchMoved = false;
         _touchEnded = true;
         _touchStationary = false;
     }
-
     public void OnTouchPhaseStationary(Vector2 position)
     {
-        _startTouchPosition = position;
+        //_startTouchPosition = position;
         _touchBegan = false;
         _touchCancelled = false;
         _touchMoved = false;
         _touchEnded = false;
         _touchStationary = true;
+    }
+    public void ChangenextBalansingCyllinder(GameObject cyllinder)
+    {
+        _nextCyllinder = cyllinder;
     }
 
     public CharacterState GetState()

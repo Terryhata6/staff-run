@@ -69,5 +69,19 @@ public class GameEvents : MonoBehaviour
         }
     }
     #endregion
-    
+
+    public Action OnFlyFirstEntryEvent; //Сюда подписывать вызов Юай
+    public void FlyFirstEntryEvent() //Вызывать в ПлеерМувмент
+    {
+        /*
+        if (flyFirstEvent)
+        Флаг из плеерПрефс
+        {*/
+        
+            if (OnSlideEvent != null)
+            {
+                OnFlyFirstEntryEvent();
+            }
+        
+    }
 }

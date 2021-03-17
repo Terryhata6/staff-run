@@ -65,23 +65,23 @@ public class StickModel : MonoBehaviour
     {
         _stickPower += 1;
     }
-    public void ChangePositionOfStick()
-    {
-        Debug.Log("ChangePositionOfStick");
-        if (!_isRotating)
+    public void ChangePositionOfStick(StickStateEnum stickState)
+    {        
+        if (stickState == StickStateEnum.Fly)
         {
             _isRotating = true;
             _stickTransform.localPosition = RotatingPositionOfStick;
             _stickTransform.rotation = Quaternion.identity;
             _stickTransform.Rotate(RotatingRotationOfStick);
         }
-        else
+        else if(stickState == StickStateEnum.Run)
         {
             _isRotating = false;
             _stickTransform.localPosition = _startPositionOfStick;
             _stickTransform.rotation = Quaternion.identity;
             _stickTransform.Rotate(_startRotationOfStick);
         }
+        
     }
     private void RotateStick()
     {
@@ -89,14 +89,6 @@ public class StickModel : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ChangeLenghtOfStick();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ChangePositionOfStick();
-        }
         if (_isRotating)
         {
             _canFlyUp = (_stickPower > 4) ? true : false;
