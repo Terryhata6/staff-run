@@ -310,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangePlayerState(CharacterState state)
     {
-        Debug.Log("ChangePalyerState");
+        
         _playerBalancingObject.transform.rotation = Quaternion.LookRotation(Vector3.forward);
         if (state == CharacterState.Fly && _currentState != state)
         {
@@ -320,6 +320,7 @@ public class PlayerMovement : MonoBehaviour
             _isRunning = false;
             _playerRigidbody.isKinematic = true;
             _stickModel.ChangePositionOfStick(StickStateEnum.Fly);
+            GameEvents.current.FlyFirstEntryEvent();
         }
         else if (state == CharacterState.Run && _currentState != state)
         {

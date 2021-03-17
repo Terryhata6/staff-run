@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FinalCameraTurner : MonoBehaviour
 {
-    [SerializeField] CameraController _camera;
-    [SerializeField] GameObject _cameraEndPosition;
+    [SerializeField] private CameraController _camera;
+    [SerializeField] private GameObject _cameraEndPosition;
+    [SerializeField] private float _timeToEndLevel = 3.0f;
 
     private MainController _mainController;
 
@@ -13,6 +14,7 @@ public class FinalCameraTurner : MonoBehaviour
     {
         _camera = FindObjectOfType<CameraController>();
         _mainController = FindObjectOfType<MainController>();
+
     }
 
 
@@ -21,7 +23,7 @@ public class FinalCameraTurner : MonoBehaviour
         if (other.CompareTag("FinalTrigger"))
         {
             _camera.SetPursuedObject(_cameraEndPosition);
-            Invoke("CompleteLevel", 3f);
+            Invoke("CompleteLevel", _timeToEndLevel);
         }
     }
 

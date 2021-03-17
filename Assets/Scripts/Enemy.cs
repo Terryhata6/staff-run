@@ -134,17 +134,17 @@ public class Enemy : MonoBehaviour
         _weaponObject.OnEnemyDeath();        
         //_enemyModelRigidbody.AddForce(Vector3.left * _addForcePower*1000, ForceMode.Impulse);
         _bodyBone.GetComponent<Rigidbody>().AddForce(Vector3.left * _addForcePower * 1000, ForceMode.Impulse);
-        Invoke("AfterDeath", 2.0f);
+        Invoke("AfterDeath", 2.0f); 
+        _isDead = true;
     }
 
     private void AfterDeath() 
     {
         _enemyModelRigidbody.isKinematic = false;
-        _enemyModelRigidbody.useGravity = false;
-        _isDead = true;
+        _enemyModelRigidbody.useGravity = false;        
         _collider.enabled = false;
-        var colliders = GetComponentsInChildren<Collider>();
-        foreach (var coll in colliders)
+        //var colliders = GetComponentsInChildren<Collider>();
+        foreach (var coll in GetComponentsInChildren<Collider>())
         {
             coll.enabled = false;
         }
