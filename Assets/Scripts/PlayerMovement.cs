@@ -311,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
     public void ChangePlayerState(CharacterState state)
     {
         
-        _playerBalancingObject.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+        _playerBalancingObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         if (state == CharacterState.Fly && _currentState != state)
         {
             _stickModel.StaffAttackEnd();
@@ -341,7 +341,6 @@ public class PlayerMovement : MonoBehaviour
             _stickModel.StaffAttackStart();
             _currentState = state;
             _stickModel.ChangePositionOfStick(StickStateEnum.Hurricane);
-
         }
         else if (state == CharacterState.Balancing && _currentState != state)
         {
@@ -354,7 +353,6 @@ public class PlayerMovement : MonoBehaviour
             _stickModel.StaffAttackEnd();
             _currentState = state;
         }
-
     }
 
     private void OnTriggerEnter(Collider _entryCollider)
@@ -372,17 +370,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     private void AttackCooldownReset()
     {
         _attackInCoolDown = false;
     }
-
     public void SetAnimatorApplyMotion(bool value)
     {
         _animator.applyRootMotion = value;
     }
-
     public void OnTouchPhaseBegan(Vector2 position)
     {
         _startTouchPosition.x = position.x;
@@ -443,7 +438,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _nextCyllinder = cyllinder;
     }
-
     public CharacterState GetState()
     {
         return _currentState;
