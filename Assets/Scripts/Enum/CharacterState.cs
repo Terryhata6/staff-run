@@ -5,6 +5,7 @@
     Fly = 2,
     Final = 3,
     Dancing = 4,
-    Balancing = 5,
-    Hurricane = 6
+    PrepareToBalance = 5,
+    Balancing = 6,
+    Hurricane = 7
 }

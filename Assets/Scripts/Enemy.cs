@@ -20,10 +20,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _addForcePower;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _targetDistance = 30;
+    [SerializeField] private GameObject _capsuleInAttackRange;
 
     private Transform _player;
     private float _distance;
-    public Rigidbody _enemyModelRigidbody;
     private Vector3 ForceVector;
     private PlayerMovement _playerState;
     private CapsuleCollider _collider;
@@ -40,6 +40,9 @@ public class Enemy : MonoBehaviour
     private Vector3 _smoothLookingVector;
     private Vector3 _movingDownVector;
     private float _movingDownSpeed = 0.005f;
+    public Rigidbody _enemyModelRigidbody;
+
+    
 
     void Start()
     {
@@ -81,9 +84,11 @@ public class Enemy : MonoBehaviour
         }
         if (!_finalState)
         {
-            if (_playerState.GetState() == CharacterState.Final)
+            if (_playerState.GetState() == CharacterState.Final ||
+                _playerState.GetState() == CharacterState.Hurricane)
             {
                 _finalState = true;
+                _bigCapsule.enabled = false;
                 if (!_animator.enabled && !_isDead)
                 {
                     _animator.enabled = true;
