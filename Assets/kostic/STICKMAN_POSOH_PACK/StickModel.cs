@@ -92,15 +92,11 @@ public class StickModel : MonoBehaviour
         if (_isRotating)
         {
             _canFlyUp = (_stickPower > 4) ? true : false;
-            if (_canFlyUp && _inputController.DragingStarted)
+            if (_canFlyUp && Input.touchCount > 0)
             {
                 if (_canGetParts)
                 {
-                    CreateStaffParts();
-                    _canGetParts = false;
-                    Invoke("CooldownStaffParts", _cooldownPartsCreating);
-                    _stickPower -= _stickPowerChanging;
-                    ChangeLenghtOfStick();
+                    SetLessStickPower();
                 }
                 _rotatingSpeed = MaxRotatingSpeed;
                 _rotatingVector.x = _rotatingSpeed;
@@ -113,6 +109,15 @@ public class StickModel : MonoBehaviour
             }
             RotateStick();
         }
+    }
+
+    public void SetLessStickPower()
+    {
+        CreateStaffParts();
+        _canGetParts = false;
+        Invoke("CooldownStaffParts", _cooldownPartsCreating);
+        _stickPower -= _stickPowerChanging;
+        ChangeLenghtOfStick();
     }
     public void CooldownStaffParts()
     {

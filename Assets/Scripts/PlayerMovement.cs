@@ -83,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
         {
             case CharacterState.Run:
                 {
-                    _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    //_playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _playerTransform.rotation = Quaternion.identity;
+                    _playerBalancingObject.transform.rotation = Quaternion.identity;
                     _animator.SetBool("BalancingBool", false);
                     _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, true);
@@ -93,7 +95,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             case CharacterState.Fly:
                 {
-                    _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    //_playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _playerTransform.rotation = Quaternion.identity;
                     _animator.SetBool("BalancingBool", false);
                     _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, false);
@@ -103,7 +106,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             case CharacterState.Final:
                 {
-                    _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    //_playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _playerTransform.rotation = Quaternion.identity;
                     _animator.SetBool("BalancingBool", false);
                     _animator.SetBool("Hurricane", false);
                     _animator.SetBool(NameManager.RunState, false);
@@ -113,7 +117,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             case CharacterState.Hurricane:
                 {
-                    _playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    //_playerTransform.rotation = Quaternion.Euler(Vector3.forward);
+                    _playerTransform.rotation = Quaternion.identity;
                     _animator.SetBool("Hurricane", true);
                     _animator.SetBool("BalancingBool", false);
                     _animator.SetBool(NameManager.RunState, false);
@@ -124,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             case CharacterState.Balancing:
                 {
+                    _playerTransform.rotation = Quaternion.identity;
                     _animator.SetBool("Hurricane", false);
                     _animator.SetBool("BalancingBool", true);
                     _animator.SetBool(NameManager.RunState, false);
@@ -143,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
                     _animator.SetBool(NameManager.RunState, true); break;
                 } 
         }
-
+        
         if (_playerTransform.position.y <= _deathHeight)
         {
             _mainController.EndLevel(false);
@@ -257,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _startPosition = _playerTransform.position;
         }
-        if (_touchMoved)
+        if (_touchMoved || _touchStationary)
         {
             //_movingVector.x = _playerTransform.position.x + _touchDelta.x;
             if (_touchDelta2D.x - _startTouchPosition.x > 0)
@@ -288,6 +294,7 @@ public class PlayerMovement : MonoBehaviour
                 _rotationVector.y -= 1.0f;
             }
         }
+        
         if (_touchStationary)
         {
             _startTouchPosition = _touchDelta2D;
@@ -373,6 +380,12 @@ public class PlayerMovement : MonoBehaviour
     private void AttackCooldownReset()
     {
         _attackInCoolDown = false;
+    }
+    public void GetDamageFromObstacle()
+    {
+        Debug.Log("PlayerWasAttackedAAAAAAAAAAAAAAAAAAAAA");
+        _stickModel.SetLessStickPower();
+        _playerRigidbody.AddForce(Vector3.forward * -800f, ForceMode.Impulse);
     }
     public void SetAnimatorApplyMotion(bool value)
     {

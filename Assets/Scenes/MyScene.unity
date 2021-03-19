@@ -6828,14 +6828,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403010364}
-  m_LocalRotation: {x: 0.309017, y: 0, z: 0, w: 0.95105654}
+  m_LocalRotation: {x: 0.35421214, y: -0, z: -0, w: 0.9351651}
   m_LocalPosition: {x: 0.58, y: 3.2595513, z: -7.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1149744357}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 36, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 41.49, y: 0, z: 0}
 --- !u!4 &1403100774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 630091052654734037, guid: 70bd1af03d04deb408130efcb94e607c,
@@ -8827,6 +8827,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6e9fbcb1327751468ee95f3f0f12c60, type: 3}
+--- !u!1 &1724995535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724995537}
+  - component: {fileID: 1724995536}
+  m_Layer: 0
+  m_Name: IronSourceSDK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724995536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724995535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea8d95289ebdac40bbcf8859e0c07fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1724995537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724995535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -99, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1736400596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10969,6 +11012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335294212747011271, guid: d37bbb8cee4736c469706540629d5c7f,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 114
       objectReference: {fileID: 0}
     - target: {fileID: 1335294212747011273, guid: d37bbb8cee4736c469706540629d5c7f,
         type: 3}

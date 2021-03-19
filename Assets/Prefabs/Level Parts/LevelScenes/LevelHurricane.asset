@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelParts:
   - {fileID: 7991424562798306478, guid: 576e91289c8724148b2c0ccacbea1fb2, type: 3}
-  - {fileID: 7991424562798306478, guid: 02319276f5fc4874fb120cd8eb067a62, type: 3}
+  - {fileID: 7991424562798306478, guid: 29dd09a9acc4ac247ab6d7c7745a68f9, type: 3}
   - {fileID: 7991424562798306478, guid: 576e91289c8724148b2c0ccacbea1fb2, type: 3}
   - {fileID: 374640749821330982, guid: 8aa2311b6d9cbca4dbce5620177b5180, type: 3}
