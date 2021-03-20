@@ -293,9 +293,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 _rotationVector.y -= 1.0f;
             }
-        }
-        
-        if (_touchStationary)
+        }        
+        if (_touchStationary/* && !_touchMoved*/)
         {
             _startTouchPosition = _touchDelta2D;
         }

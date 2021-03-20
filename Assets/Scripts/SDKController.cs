@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using GameAnalyticsSDK;
 using Facebook.Unity;
 
@@ -52,3 +53,4 @@ public class SDKController : MonoBehaviour
         }
     }
 }
+*/

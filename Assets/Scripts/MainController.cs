@@ -71,6 +71,7 @@ public class MainController : MonoBehaviour
 
         _uiController.EndGame(isLevelComplete, _levelNumber, enemyCount, enemyCountKilled);
         Time.timeScale = 0;
+        Interstitial.current.ShowInterstitial();
     }
 
     public int GetLevelNumber()

@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class RewardedVideo : MonoBehaviour
 {
+    private static RewardedVideo current;
     // Start is called before the first frame update
-    void Start()
+
+    public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        current = this;
+    }
+    void Start()
+    {        
         IronSourceEvents.onRewardedVideoAdOpenedEvent += RewardedVideoAdOpenedEvent;
-        IronSourceEvents.onRewardedVideoAdClickedEvent += RewardedVideoAdClickedEvent;
         IronSourceEvents.onRewardedVideoAdClosedEvent += RewardedVideoAdClosedEvent;
         IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardedVideoAvailabilityChangedEvent;
         IronSourceEvents.onRewardedVideoAdStartedEvent += RewardedVideoAdStartedEvent;
         IronSourceEvents.onRewardedVideoAdEndedEvent += RewardedVideoAdEndedEvent;
         IronSourceEvents.onRewardedVideoAdRewardedEvent += RewardedVideoAdRewardedEvent;
         IronSourceEvents.onRewardedVideoAdShowFailedEvent += RewardedVideoAdShowFailedEvent;
+        IronSourceEvents.onRewardedVideoAdClickedEvent += RewardedVideoAdClickedEvent;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
         
-    }
 
     //Invoked when the RewardedVideo ad view has opened.
     //Your Activity will lose focus. Please avoid performing heavy 
@@ -53,6 +53,8 @@ public class RewardedVideo : MonoBehaviour
     //@param - placement - placement object which contains the reward data
     void RewardedVideoAdRewardedEvent(IronSourcePlacement placement)
     {
+        //Тут прописывать получение награды игроком за просмотр
+
     }
     //Invoked when the Rewarded Video failed to show
     //@param description - string - contains information about the failure.
@@ -69,10 +71,12 @@ public class RewardedVideo : MonoBehaviour
     //Invoked when the video ad starts playing. 
     void RewardedVideoAdStartedEvent()
     {
+        Time.timeScale = 0;
     }
     //Invoked when the video ad finishes playing. 
     void RewardedVideoAdEndedEvent()
     {
+        Time.timeScale = 1;
     }
 
     void RewardedVideoAdClickedEvent(IronSourcePlacement placement)
