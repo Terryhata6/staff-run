@@ -28,7 +28,7 @@ public class StickModel : MonoBehaviour
     private bool _wasThrowed;
     private bool _canFlyUp;
     private bool _canGetParts;
-    [SerializeField]private float _cooldownPartsCreating = 0.25f;
+    [SerializeField] private float _cooldownPartsCreating = 0.25f;
     [SerializeField] private float _stickPowerChanging = 1f;
 
     public bool CanFlyUp

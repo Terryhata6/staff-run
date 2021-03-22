@@ -44,14 +44,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _touchDelta2D = Vector2.zero;
     private Vector2 _touchDeltaNormalized = Vector2.zero;
     private GameObject _nextCyllinder;
+    private float _balanceModifier;
+    [SerializeField] private GameObject _playerBalancingObject;
+    private float _balancingRotateValue;
+    private bool _canGetDamage = true;
+
+    public StickModel MainStaff => _stickModel;
     public GameObject NextCyllinder
     {
         get => _nextCyllinder;
         set => _nextCyllinder = value;
     }
-    private float _balanceModifier;
-    [SerializeField]private GameObject _playerBalancingObject;
-    private float _balancingRotateValue;
 
     private void Start()
     {
@@ -144,12 +147,12 @@ public class PlayerMovement : MonoBehaviour
                     ChangePlayerState(CharacterState.Balancing);
                     break;
                 }
-            default: 
-                { 
+            default:
+                {
                     _animator.SetBool(NameManager.RunState, true); break;
-                } 
+                }
         }
-        
+
         if (_playerTransform.position.y <= _deathHeight)
         {
             _mainController.EndLevel(false);
@@ -229,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector3.forward * _magnitude * 0.01f * 5 * Time.deltaTime);
 
         }
-        _playerBalancingObject.transform.Rotate(0f,15f,0f);
+        _playerBalancingObject.transform.Rotate(0f, 15f, 0f);
         //_playerTransform.position += Vector3.forward * MovingSpeed * Time.deltaTime;
     }
     private void OnFlyMovement()
@@ -276,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
             }
             //_movingVector.x = _startPosition.x + (_touchDeltaNormalized.x - _startTouchPosition.x);// * _sliderSensetivity;
             _rotationVector.y = _touchDelta2D.x - _startTouchPosition.x;
-            
+
             if (_rotationVector.y > 30f)
             {
                 _rotationVector.y = 30f;
@@ -293,7 +296,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _rotationVector.y -= 1.0f;
             }
-        }        
+        }
         if (_touchStationary/* && !_touchMoved*/)
         {
             _startTouchPosition = _touchDelta2D;
@@ -313,10 +316,12 @@ public class PlayerMovement : MonoBehaviour
         _playerTransform.position = _movingVector;
     }
 
-
+    /// <summary>
+    /// ON CHANGING PLAYER STATE BEHAVIOUR
+    /// </summary>
+    /// <param name="state"></param>
     public void ChangePlayerState(CharacterState state)
     {
-        
         _playerBalancingObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         if (state == CharacterState.Fly && _currentState != state)
         {
@@ -376,20 +381,35 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// ATTACK COOLDOWN
+    /// </summary>
     private void AttackCooldownReset()
     {
         _attackInCoolDown = false;
     }
+    #region GETDAMAGE 
     public void GetDamageFromObstacle()
     {
-        Debug.Log("PlayerWasAttackedAAAAAAAAAAAAAAAAAAAAA");
-        _stickModel.SetLessStickPower();
-        _playerRigidbody.AddForce(Vector3.forward * -800f, ForceMode.Impulse);
+        if (_canGetDamage)
+        {
+            _stickModel.SetLessStickPower();
+            _playerRigidbody.AddForce(Vector3.forward * -800f, ForceMode.Impulse);
+            _canGetDamage = false;
+            Invoke("InvokedGetDamageCD", 2f);
+        }
     }
+
+    private void InvokedGetDamageCD()
+    {
+        _canGetDamage = true;
+    }
+    #endregion
     public void SetAnimatorApplyMotion(bool value)
     {
         _animator.applyRootMotion = value;
     }
+    #region INPUT EVENT METHODS
     public void OnTouchPhaseBegan(Vector2 position)
     {
         _startTouchPosition.x = position.x;
@@ -446,6 +466,7 @@ public class PlayerMovement : MonoBehaviour
         _touchEnded = false;
         _touchStationary = true;
     }
+    #endregion
     public void ChangenextBalansingCyllinder(GameObject cyllinder)
     {
         _nextCyllinder = cyllinder;

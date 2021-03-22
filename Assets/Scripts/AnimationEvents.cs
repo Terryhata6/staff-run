@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AnimationEvents : MonoBehaviour
 {
-    [SerializeField] StickModel _staff;
-    [SerializeField] PlayerMovement _player;
+    [SerializeField] private StickModel _staff;
+    [SerializeField] private PlayerMovement _player;
 
+
+    public void Start()
+    {
+        _staff = _player.MainStaff;
+    }
     public void StaffAttackStarted()
     {
         
